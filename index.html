@@ -264,4 +264,793 @@ tbody td input[type="number"]{width:65px;padding:5px;border-radius:7px;border:1.
     <div class="LCARD">
       <div style="text-align:center;margin-bottom:16px">
         <div style="font-size:28px;margin-bottom:4px">🔐</div>
-        <div style="font-si
+        <div style="font-size:17px;font-weight:800;color:#fff">Login करें</div>
+      </div>
+      <div class="LERR" id="LERR"></div>
+      <label class="LLB">👤 USERNAME</label>
+      <div style="position:relative">
+        <input class="LIN" type="text" id="LU" placeholder="username डालें" autocomplete="off" oninput="prvRole()" style="margin-bottom:12px;padding-right:38px">
+        <div id="luChk" style="position:absolute;right:11px;top:14px;font-size:17px"></div>
+      </div>
+      <label class="LLB">🔑 PASSWORD</label>
+      <div style="position:relative">
+        <input class="LIN" type="password" id="LP" placeholder="password डालें" style="margin-bottom:16px;padding-right:38px">
+        <span id="pEye" onclick="tgPwd()" style="position:absolute;right:11px;top:14px;cursor:pointer;font-size:17px;color:rgba(255,255,255,.35)">👁</span>
+      </div>
+      <button class="LBTN" onclick="doLogin()">🔐 Login करें</button>
+      <div style="text-align:center;margin-top:12px">
+        <span class="LFGT" onclick="opFP()">🔑 Password भूल गए?</span>
+      </div>
+    </div>
+    <div class="FNOTE">🙏 Jay ShivShakti General Store<br>Admin · Manager · Staff · Agent · Distributor</div>
+  </div>
+
+  <!-- REGISTRATION PANEL -->
+  <div id="rPanel" style="display:none;width:100%;max-width:360px">
+    <div class="LCARD">
+      <div style="text-align:center;margin-bottom:14px">
+        <div style="font-size:26px;margin-bottom:3px">📝</div>
+        <div style="font-size:16px;font-weight:800;color:#fff">New Registration</div>
+        <div style="font-size:10px;color:rgba(255,255,255,.32);margin-top:2px">Admin approve करेगा</div>
+      </div>
+      <div class="LERR" id="rErr"></div>
+      <div class="LSUC" id="rSucc"></div>
+      <label class="LLB">👤 पूरा नाम *</label>
+      <input class="LIN" type="text" id="rNm" placeholder="Ramesh Kumar" style="margin-bottom:11px">
+      <label class="LLB">📱 Mobile Number *</label>
+      <input class="LIN" type="tel" id="rPh" placeholder="10-digit number" maxlength="10" style="margin-bottom:11px">
+      <label class="LLB">📧 Gmail / Email</label>
+      <input class="LIN" type="email" id="rEm" placeholder="example@gmail.com" style="margin-bottom:11px">
+      <label class="LLB">🏠 पता / Address *</label>
+      <textarea class="LIN" id="rAd" rows="2" placeholder="मकान नं., गली, शहर..." style="resize:none;margin-bottom:11px"></textarea>
+      <label class="LLB">🎭 Role Select करें *</label>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:11px">
+        <div class="RCHIP" id="rc-agent" onclick="selRC('agent')"><div style="font-size:20px">🤝</div><div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.7);margin-top:2px">Agent</div></div>
+        <div class="RCHIP" id="rc-distributor" onclick="selRC('distributor')"><div style="font-size:20px">🚚</div><div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.7);margin-top:2px">Distributor</div></div>
+        <div class="RCHIP" id="rc-staff" onclick="selRC('staff')"><div style="font-size:20px">🙋</div><div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.7);margin-top:2px">Staff</div></div>
+        <div class="RCHIP" id="rc-customer" onclick="selRC('customer')"><div style="font-size:20px">👤</div><div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.7);margin-top:2px">Customer</div></div>
+      </div>
+      <label class="LLB">🏪 Business/दुकान Name</label>
+      <input class="LIN" type="text" id="rBiz" placeholder="Optional" style="margin-bottom:11px">
+      <label class="LLB">💬 Admin को message</label>
+      <textarea class="LIN" id="rNote" rows="2" placeholder="Optional..." style="resize:none;margin-bottom:13px"></textarea>
+      <button class="LBTN2" onclick="subReg()">📤 Submit Request</button>
+    </div>
+    <div class="FNOTE">Request submit होने पर Admin approve करेगा</div>
+  </div>
+</div>
+
+<!-- ===FORGOT PASSWORD=== -->
+<div class="MO" id="mFP" style="background:rgba(0,0,0,.8)">
+  <div style="background:linear-gradient(145deg,#1a0a02,#2e1204);border:1.5px solid rgba(255,255,255,.13);border-radius:20px;padding:22px 18px;width:100%;max-width:340px;max-height:92vh;overflow-y:auto;animation:SU .2s ease">
+
+    <!-- Step 1 -->
+    <div id="fp1">
+      <div style="text-align:center;margin-bottom:16px"><div style="font-size:34px;margin-bottom:4px">🔑</div><div style="font-size:16px;font-weight:800;color:#fff">Password Reset</div><div style="font-size:10px;color:rgba(255,255,255,.35);margin-top:2px">Mobile / Email / Username से खोजें</div></div>
+      <!-- Search mode tabs -->
+      <div style="display:flex;gap:5px;margin-bottom:11px">
+        <div id="fm-ph" onclick="selFM('phone')" style="flex:1;padding:7px 4px;text-align:center;border-radius:9px;border:1.5px solid rgba(255,255,255,.15);background:rgba(39,174,96,.18);border-color:rgba(39,174,96,.4);cursor:pointer;font-size:10px;font-weight:800;color:#7fff7f">📱 Mobile</div>
+        <div id="fm-em" onclick="selFM('email')" style="flex:1;padding:7px 4px;text-align:center;border-radius:9px;border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);cursor:pointer;font-size:10px;font-weight:800;color:rgba(255,255,255,.5)">📧 Email</div>
+        <div id="fm-un" onclick="selFM('uname')" style="flex:1;padding:7px 4px;text-align:center;border-radius:9px;border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);cursor:pointer;font-size:10px;font-weight:800;color:rgba(255,255,255,.5)">👤 Username</div>
+      </div>
+      <div id="fe1" style="display:none;background:rgba(231,76,60,.15);border:1px solid rgba(231,76,60,.3);border-radius:9px;padding:8px 12px;color:#ff8a80;font-size:11px;margin-bottom:10px;text-align:center"></div>
+      <label style="font-size:10px;font-weight:800;color:rgba(255,255,255,.4);display:block;margin-bottom:5px;letter-spacing:.5px" id="fpInpLbl">📱 MOBILE NUMBER</label>
+      <input type="text" id="fpInp" placeholder="mobile number" oninput="fpPreview()"
+        style="width:100%;padding:12px 14px;border-radius:10px;border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.1);color:#fff;font-size:13px;outline:none;margin-bottom:10px;box-sizing:border-box">
+      <!-- User preview -->
+      <div id="fpUCard" style="display:none;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:10px 12px;margin-bottom:11px">
+        <div style="display:flex;align-items:center;gap:9px">
+          <div id="fpUAv" style="width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;color:#fff;flex-shrink:0"></div>
+          <div><div id="fpUNm" style="font-size:13px;font-weight:800;color:#fff"></div><div id="fpURl" style="font-size:10px;margin-top:2px"></div><div id="fpUPh" style="font-size:9px;color:rgba(255,255,255,.4);margin-top:1px"></div></div>
+        </div>
+      </div>
+      <button onclick="fpSend()" style="width:100%;padding:12px;border-radius:10px;border:none;cursor:pointer;background:linear-gradient(135deg,#f7813a,#c04410);color:#fff;font-size:14px;font-weight:800;margin-bottom:8px">📲 OTP Generate करें</button>
+      <button onclick="clFP()" style="width:100%;padding:10px;border-radius:10px;border:1.5px solid rgba(255,255,255,.14);background:none;color:rgba(255,255,255,.4);font-size:13px;font-weight:700;cursor:pointer">✕ Cancel</button>
+    </div>
+
+    <!-- Step 2 -->
+    <div id="fp2" style="display:none">
+      <div style="text-align:center;margin-bottom:14px"><div style="font-size:34px;margin-bottom:4px">📲</div><div style="font-size:16px;font-weight:800;color:#fff">OTP Verify करें</div><div id="fp2h" style="font-size:10px;color:rgba(255,255,255,.35);margin-top:2px"></div></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:12px">
+        <div style="background:rgba(39,174,96,.1);border:1px solid rgba(39,174,96,.25);border-radius:10px;padding:9px 7px;text-align:center"><div style="font-size:17px;margin-bottom:2px">📱</div><div style="font-size:9px;font-weight:800;color:rgba(100,220,120,.8)">SMS भेजा</div><div id="fp2ph" style="font-size:10px;color:rgba(255,255,255,.4);margin-top:1px;font-weight:600"></div></div>
+        <div style="background:rgba(26,95,224,.1);border:1px solid rgba(26,95,224,.25);border-radius:10px;padding:9px 7px;text-align:center"><div style="font-size:17px;margin-bottom:2px">📧</div><div style="font-size:9px;font-weight:800;color:rgba(100,160,255,.8)">Email भेजा</div><div id="fp2em" style="font-size:10px;color:rgba(255,255,255,.4);margin-top:1px;font-weight:600"></div></div>
+      </div>
+      <div class="OTPBOX"><div style="font-size:9px;font-weight:800;color:rgba(247,129,58,.6);letter-spacing:.5px;margin-bottom:6px">📋 आपका OTP (Demo Mode)</div><div class="OTPVAL" id="fpOV"></div><div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px"><div id="fpTmr" style="font-size:10px;color:rgba(255,255,255,.35)"></div><button onclick="fpResend()" style="font-size:10px;color:rgba(247,129,58,.7);background:none;border:1px solid rgba(247,129,58,.25);cursor:pointer;border-radius:6px;padding:2px 7px;font-weight:700">🔄 Resend</button></div></div>
+      <div id="fe2" style="display:none;background:rgba(231,76,60,.15);border:1px solid rgba(231,76,60,.3);border-radius:9px;padding:8px 12px;color:#ff8a80;font-size:11px;margin-bottom:10px;text-align:center"></div>
+      <label style="font-size:10px;font-weight:800;color:rgba(255,255,255,.4);display:block;margin-bottom:5px;letter-spacing:.5px">🔢 OTP यहाँ डालें</label>
+      <input type="number" id="fpOI" placeholder="• • • • • •" style="width:100%;padding:14px;border-radius:10px;border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.1);color:#fff;font-size:22px;font-weight:800;outline:none;margin-bottom:12px;text-align:center;letter-spacing:6px;box-sizing:border-box">
+      <button onclick="fpVerify()" style="width:100%;padding:12px;border-radius:10px;border:none;cursor:pointer;background:linear-gradient(135deg,#f7813a,#c04410);color:#fff;font-size:14px;font-weight:800;margin-bottom:8px">✅ Verify करें</button>
+      <button onclick="fpStep(1)" style="width:100%;padding:10px;border-radius:10px;border:1.5px solid rgba(255,255,255,.14);background:none;color:rgba(255,255,255,.4);font-size:13px;font-weight:700;cursor:pointer">← वापस</button>
+    </div>
+
+    <!-- Step 3 -->
+    <div id="fp3" style="display:none">
+      <div style="text-align:center;margin-bottom:14px"><div style="font-size:34px;margin-bottom:4px">🔒</div><div style="font-size:16px;font-weight:800;color:#fff">नया Password</div><div id="fp3h" style="font-size:10px;color:rgba(255,255,255,.35);margin-top:2px"></div></div>
+      <div id="fe3" style="display:none;background:rgba(231,76,60,.15);border:1px solid rgba(231,76,60,.3);border-radius:9px;padding:8px 12px;color:#ff8a80;font-size:11px;margin-bottom:10px;text-align:center"></div>
+      <!-- Optional username change -->
+      <div style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:9px;padding:9px 11px;margin-bottom:11px">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div style="font-size:10px;color:rgba(255,255,255,.5);font-weight:700">Username भी बदलना है?</div>
+          <label style="display:flex;align-items:center;gap:5px;cursor:pointer"><input type="checkbox" id="chgUnCb" onchange="tgUnChange()"><span style="font-size:10px;color:rgba(255,255,255,.6);font-weight:700">हाँ</span></label>
+        </div>
+        <div id="unChgRow" style="display:none;margin-top:8px">
+          <label style="font-size:9px;font-weight:800;color:rgba(255,255,255,.4);display:block;margin-bottom:4px">नया USERNAME</label>
+          <input type="text" id="fpNU" placeholder="नया username" style="width:100%;padding:10px 12px;border-radius:9px;border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.1);color:#fff;font-size:12px;outline:none;box-sizing:border-box">
+        </div>
+      </div>
+      <label style="font-size:10px;font-weight:800;color:rgba(255,255,255,.4);display:block;margin-bottom:5px;letter-spacing:.5px">🔑 नया Password</label>
+      <div style="position:relative;margin-bottom:10px"><input type="password" id="fpP1" oninput="fpStr()" placeholder="नया password" style="width:100%;padding:11px 40px 11px 12px;border-radius:10px;border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.1);color:#fff;font-size:13px;outline:none;box-sizing:border-box"><span id="fpe1" onclick="tgFPwd('fpP1','fpe1')" style="position:absolute;right:11px;top:50%;transform:translateY(-50%);cursor:pointer;font-size:16px;color:rgba(255,255,255,.35)">👁</span></div>
+      <div class="STRENGTH" style="margin-bottom:3px"><div class="STR" id="fpSB"></div></div>
+      <div id="fpST" style="font-size:9px;color:rgba(255,255,255,.3);text-align:right;margin-bottom:10px"></div>
+      <label style="font-size:10px;font-weight:800;color:rgba(255,255,255,.4);display:block;margin-bottom:5px;letter-spacing:.5px">🔁 Confirm Password</label>
+      <div style="position:relative;margin-bottom:15px"><input type="password" id="fpP2" placeholder="दोबारा डालें" style="width:100%;padding:11px 40px 11px 12px;border-radius:10px;border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.1);color:#fff;font-size:13px;outline:none;box-sizing:border-box"><span id="fpe2" onclick="tgFPwd('fpP2','fpe2')" style="position:absolute;right:11px;top:50%;transform:translateY(-50%);cursor:pointer;font-size:16px;color:rgba(255,255,255,.35)">👁</span></div>
+      <button onclick="fpSave()" style="width:100%;padding:12px;border-radius:10px;border:none;cursor:pointer;background:linear-gradient(135deg,#27ae60,#1a8a48);color:#fff;font-size:14px;font-weight:800;margin-bottom:8px">💾 Password Save करें</button>
+      <button onclick="fpStep(2)" style="width:100%;padding:10px;border-radius:10px;border:1.5px solid rgba(255,255,255,.14);background:none;color:rgba(255,255,255,.4);font-size:13px;font-weight:700;cursor:pointer">← वापस</button>
+    </div>
+
+    <!-- Step 4 -->
+    <div id="fp4" style="display:none;text-align:center;padding:10px 0">
+      <div style="font-size:52px;margin-bottom:10px">✅</div>
+      <div style="font-size:17px;font-weight:800;color:#fff;margin-bottom:7px">Reset हो गया!</div>
+      <div id="fp4m" style="font-size:12px;color:rgba(255,255,255,.45);line-height:1.7;margin-bottom:20px"></div>
+      <button onclick="clFP()" style="width:100%;padding:13px;border-radius:11px;border:none;cursor:pointer;background:linear-gradient(135deg,#f7813a,#c04410);color:#fff;font-size:14px;font-weight:800">🔐 Login करें</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===APP HEADER=== -->
+<header id="AH" style="display:none">
+  <div class="HT">
+    <div class="AT">🛒 <b id="ATS">Jay ShivShakti</b></div>
+    <div class="HU">
+      <div style="text-align:right"><div class="HUN" id="HN"></div><div style="font-size:9px;color:rgba(255,255,255,.6)" id="HB"></div></div>
+      <button class="LOUT" onclick="doLogout()">↩ Out</button>
+    </div>
+  </div>
+  <div class="TB" id="TB">
+    <button class="TBT hd" id="t-home"  onclick="sw('home')">🏠 Home</button>
+    <button class="TBT hd" id="t-cat"   onclick="sw('cat')">📦 Category</button>
+    <button class="TBT hd" id="t-items" onclick="sw('items')">🏷️ Items</button>
+    <button class="TBT hd" id="t-milk"  onclick="sw('milk')">🥛 Milk</button>
+    <button class="TBT hd" id="t-sales" onclick="sw('sales')">💰 Sales</button>
+    <button class="TBT hd" id="t-orders"onclick="sw('orders')">📋 Orders</button>
+    <button class="TBT hd" id="t-users" onclick="sw('users')">👥 Users</button>
+    <button class="TBT hd" id="t-dist"  onclick="sw('dist')">🚚 Dispatch</button>
+    <button class="TBT hd" id="t-shop"  onclick="sw('shop')">🛍️ Shop</button>
+  </div>
+</header>
+
+<div class="main" id="AM" style="display:none">
+
+  <div class="SEC" id="sec-home">
+    <div class="DASH" id="dshC"></div>
+    <div class="SH">Quick Access</div>
+    <div id="qaC" style="display:flex;flex-direction:column;gap:7px"></div>
+  </div>
+
+  <div class="SEC" id="sec-cat">
+    <div class="AB"><input class="inp" placeholder="🔍 Category खोजें..." id="CQ" oninput="rCats()" style="flex:1"><button class="btn bp" id="bAC" onclick="oCatM()">+ Add</button></div>
+    <div class="SH">Categories</div>
+    <div class="CG" id="catGrid"></div>
+  </div>
+
+  <div class="SEC" id="sec-items">
+    <div class="AB"><input class="inp" placeholder="🔍 Item खोजें..." id="IQ" oninput="rItems()" style="flex:1"><button class="btn bp" id="bAI" onclick="oItemM()">+ Add</button></div>
+    <div class="FG" style="margin-bottom:11px"><select class="inp" id="catFil" onchange="rItems()"></select></div>
+    <div class="SH">Items</div>
+    <div class="IL" id="itemList"></div>
+  </div>
+
+  <div class="SEC" id="sec-milk">
+    <div class="MH"><h2>🥛 Dispatch Sales</h2><p>दूध और दही की डिस्पैच एंट्री</p></div>
+    <div class="DM">
+      <div class="MF"><label>Order No</label><input type="number" id="oNo" value="312"></div>
+      <div class="MF"><label>Date</label><input type="date" id="oDt"></div>
+      <div class="MF"><label>Shift</label><select id="oSh"><option>MORNING</option><option selected>EVENING</option><option>NIGHT</option></select></div>
+      <div class="MF"><label>Booth/Route</label><input type="text" id="oBo" placeholder="Society name"></div>
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:11px;align-items:center"><div class="SH" style="margin-bottom:0;flex:1">Milk Items</div><button class="btn bb bsm" id="bAM" onclick="oMilkM()">+ Add</button></div>
+    <div class="TW">
+      <table><thead><tr><th>Item</th><th>Bags</th><th>Order Qty</th><th>Dispatch Qty</th><th>Rate</th><th></th></tr></thead><tbody id="milkBody"></tbody></table>
+    </div>
+    <div class="DF">
+      <div class="FS"><label>TOTAL QTY</label><div class="FV" id="tQ">0</div></div>
+      <div class="FS"><label>TOTAL BAGS</label><div class="FV" id="tB">0</div></div>
+      <div class="FS"><label>TOTAL VALUE</label><div class="FV" style="color:#e05c1a" id="tV">₹0</div></div>
+    </div>
+    <div style="margin-top:10px"><textarea class="inp" id="oRem" placeholder="Remarks..." rows="2" style="resize:vertical"></textarea></div>
+    <div class="MA" style="display:flex;gap:7px;margin-top:11px">
+      <button class="btn bb" style="flex:1;justify-content:center" onclick="saveDisp()">💾 Save</button>
+      <button class="btn bo bsm" onclick="window.print()">🖨️</button>
+      <button class="btn bo bsm" onclick="clrDisp()">🗑️</button>
+    </div>
+  </div>
+
+  <div class="SEC" id="sec-sales">
+    <div class="SC">
+      <h3 style="font-size:14px;font-weight:800;margin-bottom:11px">💰 Sale Record करें</h3>
+      <div class="FR2">
+        <div class="FG"><label>Item</label><select id="sItem" class="inp"></select></div>
+        <div class="FG"><label>Unit</label><select id="sUnit" class="inp" onchange="updSPrice()"><option value="nag">🔵 Nag</option><option value="patti">🟡 Patti</option><option value="cartoon">🟠 Cartoon</option></select></div>
+      </div>
+      <div class="FR2">
+        <div class="FG"><label>Qty</label><input type="number" id="sQty" placeholder="1" class="inp"></div>
+        <div class="FG"><label>Customer</label><input type="text" id="sCust" placeholder="Optional" class="inp"></div>
+      </div>
+      <div class="FR2">
+        <div class="FG"><label>Payment</label><select id="sPay" class="inp"><option>Cash</option><option>UPI</option><option>Credit</option></select></div>
+        <div class="FG"><label>Unit Price</label><input type="number" id="sPrice" class="inp" readonly style="background:#f8f5f0;color:#7a6650"></div>
+      </div>
+      <button class="btn bg" style="width:100%;justify-content:center;margin-top:10px" onclick="recSale()">✅ Record Sale</button>
+    </div>
+    <div class="SH">Today's Sales</div>
+    <div class="SL" id="saleLog"></div>
+  </div>
+
+  <div class="SEC" id="sec-orders">
+    <div class="AB"><div class="SH" style="margin-bottom:0;flex:1">📋 Orders</div><button class="btn bv bsm" onclick="oOrdM()">+ New</button></div>
+    <div id="ordList"></div>
+  </div>
+
+  <div class="SEC" id="sec-users">
+    <div class="AB"><div class="SH" style="margin-bottom:0;flex:1">👥 User Management</div><button class="btn bp bsm" onclick="oUserM()">+ Add</button></div>
+    <div class="UG" id="usersGrid"></div>
+  </div>
+
+  <div class="SEC" id="sec-dist">
+    <div class="DSG" id="distStats"></div>
+    <div class="SH">🚚 Dispatch History</div>
+    <div id="distHist"></div>
+  </div>
+
+  <div class="SEC" id="sec-shop">
+    <div class="SBN"><h2 style="font-size:17px;font-weight:800">🛍️ Shop करें</h2><p id="shopSub" style="font-size:11px;color:rgba(255,255,255,.65);margin-top:2px"></p></div>
+    <div id="shopTabs" style="display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:11px;scrollbar-width:none"></div>
+    <div class="SGR" id="shopGrid"></div>
+  </div>
+
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="BN" id="ABN" style="display:none">
+  <button class="BNB hd" id="b-home"  onclick="sw('home')"><span class="BI">🏠</span>Home</button>
+  <button class="BNB hd" id="b-cat"   onclick="sw('cat')"><span class="BI">📦</span>Cat</button>
+  <button class="BNB hd" id="b-items" onclick="sw('items')"><span class="BI">🏷️</span>Items</button>
+  <button class="BNB hd" id="b-milk"  onclick="sw('milk')"><span class="BI">🥛</span>Milk</button>
+  <button class="BNB hd" id="b-sales" onclick="sw('sales')"><span class="BI">💰</span>Sales</button>
+  <button class="BNB hd" id="b-orders"onclick="sw('orders')"><span class="BI">📋</span>Orders</button>
+  <button class="BNB hd" id="b-users" onclick="sw('users')"><span class="BI">👥</span>Users</button>
+  <button class="BNB hd" id="b-dist"  onclick="sw('dist')"><span class="BI">🚚</span>Dispatch</button>
+  <button class="BNB hd" id="b-shop"  onclick="sw('shop')"><span class="BI">🛍️</span>Shop</button>
+</nav>
+
+<!-- MODALS -->
+<div class="MO" id="mCat"><div class="MD">
+  <h3 id="mCatT">📦 Add Category</h3>
+  <input type="hidden" id="cEId">
+  <div class="FG"><label>Category Name</label><input type="text" id="cNm" placeholder="नाम लिखें"></div>
+  <div class="FG"><label>Emoji चुनें</label>
+    <div class="EP" id="emojiPicker"></div>
+  </div>
+  <div class="MBTNS"><button class="btn bo" onclick="cm('mCat')">Cancel</button><button class="btn bp" onclick="savCat()">Save</button></div>
+</div></div>
+
+<div class="MO" id="mItem"><div class="MD">
+  <h3 id="mItemT">🏷️ Add Item</h3>
+  <input type="hidden" id="iEId">
+  <div class="FG"><label>Item Name</label><input type="text" id="iNm" placeholder="नाम लिखें"></div>
+  <div class="FG"><label>Category</label><select id="iCat"></select></div>
+
+  <div class="USEC">
+    <h4>📦 Unit Type</h4>
+    <div class="UPRESETS">
+      <div class="UP" onclick="setUT('Nag','Patti','Cartoon')">🟠 Nag·Patti·Cartoon</div>
+      <div class="UP" onclick="setUT('Bottle','Patti','Box')">🍶 Bottle·Patti·Box</div>
+      <div class="UP" onclick="setUT('Pouch','Strip','Cartoon')">🫙 Pouch·Strip·Cartoon</div>
+      <div class="UP" onclick="setUT('Packet','Bundle','Case')">📦 Packet·Bundle·Case</div>
+      <div class="UP" onclick="setUT('Sachet','Box','Master')">🧧 Sachet·Box·Master</div>
+      <div class="UP" onclick="setUT('Tin','Tray','Pallet')">🥫 Tin·Tray·Pallet</div>
+      <div class="UP" onclick="setUT('Piece','Dozen','Gross')">🔢 Piece·Dozen·Gross</div>
+    </div>
+    <div class="UGRID" style="margin-bottom:7px">
+      <div class="FG" style="margin:0"><label>🔵 Small Unit</label><input type="text" id="uL1" placeholder="Nag" oninput="updUL()"></div>
+      <div class="FG" style="margin:0"><label>🟡 Mid Unit</label><input type="text" id="uL2" placeholder="Patti" oninput="updUL()"></div>
+      <div class="FG" style="margin:0;margin-top:7px"><label>🟠 Big Unit</label><input type="text" id="uL3" placeholder="Cartoon" oninput="updUL()"></div>
+    </div>
+    <div style="font-size:9px;font-weight:800;color:#7a6650;margin-bottom:5px;letter-spacing:.3px;margin-top:5px">⚡ QTY PRESETS</div>
+    <div class="QPRESETS">
+      <div class="QP" onclick="setQ(6,4)">6×4</div><div class="QP" onclick="setQ(10,12)">10×12</div>
+      <div class="QP" onclick="setQ(12,12)">12×12</div><div class="QP" onclick="setQ(12,24)">12×24</div>
+      <div class="QP" onclick="setQ(10,24)">10×24</div><div class="QP" onclick="setQ(12,48)">12×48</div>
+      <div class="QP" onclick="setQ(6,12)">6×12</div><div class="QP" onclick="setQ(24,12)">24×12</div>
+    </div>
+    <div class="UGRID" style="margin-top:8px">
+      <div class="FG" style="margin:0"><label id="lNPP">🔵 Ek Mid में Small</label><input type="number" id="iNPP" placeholder="12" min="1" oninput="calcP()"></div>
+      <div class="FG" style="margin:0"><label id="lPPC">🟠 Big में Mid</label><input type="number" id="iPPC" placeholder="24" min="1" oninput="calcP()"></div>
+    </div>
+    <div style="background:#e8f0fe;border-radius:8px;padding:8px;margin-top:8px;font-size:10px;color:#1a5fe0;font-weight:700">📐 1 <span id="lB">Cartoon</span> = <span id="cNPC">—</span> <span id="lS">Nag</span> &nbsp;|&nbsp; 1 <span id="lM">Patti</span> = <span id="cNPP">—</span> <span id="lS2">Nag</span></div>
+  </div>
+
+  <div class="USEC">
+    <h4>💰 Price Table</h4>
+    <table style="width:100%;border-collapse:collapse;font-size:11px;min-width:0">
+      <thead><tr style="background:linear-gradient(135deg,#e05c1a,#b84510);color:#fff"><th style="padding:7px 6px;text-align:center;font-size:10px">Role</th><th style="padding:7px 6px;text-align:center;font-size:10px">🟠 Big ₹</th><th style="padding:7px 6px;text-align:center;font-size:10px">🟡 Mid ₹</th><th style="padding:7px 6px;text-align:center;font-size:10px">🔵 Small ₹</th></tr></thead>
+      <tbody>
+        <tr style="border-bottom:1px solid #e2d5c5;background:#fff"><td style="padding:7px 6px;color:#e74c3c;font-weight:800;font-size:10px">👤 Cust</td><td style="padding:5px;background:#fafaf8"><input type="number" id="pCC" style="width:65px;padding:5px;border-radius:6px;border:1.5px solid #e2d5c5;font-size:11px;text-align:center" oninput="autoC('C')"></td><td style="padding:5px;background:#fafaf8"><input type="number" id="pCP" style="width:65px;padding:5px;border-radius:6px;border:1.5px solid #e2d5c5;font-size:11px;text-align:center"></td><td style="padding:5px;background:#fafaf8"><input type="number" id="pCN" style="width:65px;padding:5px;border-radius:6px;border:1.5px solid #e2d5c5;font-size:11px;text-align:center"></td></tr>
+        <tr style="border-bottom:1px solid #e2d5c5;background:#fff"><td style="padding:7px 6px;color:#1a5fe0;font-weight:800;font-size:10px">🚚 Dist</td><td style="padding:5px;background:#fafaf8"><input type="number" id="pDC" style="width:65px;padding:5px;border-radius:6px;border:1.5px solid #e2d5c5;font-size:11px;text-align:center" oninput="autoC('D')"></td><td style="padding:5px;background:#fafaf8"><input type="number" id="pDP" style="width:65px;padding:5px;border-radius:6px;border:1.5px solid #e2d5c5;font-size:11px;text-align:center"></td><td style="padding:5px;background:#fafaf8"><input type="number" id="pDN" style="width:65px;padding:5px;border-radius:6px;border:1.5px solid #e2d5c5;font-size:11px;text-align:center"></td></tr>
+        <tr style="background:#fff"><td style="padding:7px 6px;color:#8e44ad;font-weight:800;font-size:10px">🤝 Agt</td><td style="padding:5px;background:#fafaf8"><input type="number" id="pAC" style="width:65px;padding:5px;border-radius:6px;border:1.5px solid #e2d5c5;font-size:11px;text-align:center" oninput="autoC('A')"></td><td style="padding:5px;background:#fafaf8"><input type="number" id="pAP" style="width:65px;padding:5px;border-radius:6px;border:1.5px solid #e2d5c5;font-size:11px;text-align:center"></td><td style="padding:5px;background:#fafaf8"><input type="number" id="pAN" style="width:65px;padding:5px;border-radius:6px;border:1.5px solid #e2d5c5;font-size:11px;text-align:center"></td></tr>
+      </tbody>
+    </table>
+    <div style="font-size:9px;color:#7a6650;margin-top:5px">💡 Big price डालो — Mid और Small auto calculate होंगे</div>
+  </div>
+
+  <div class="USEC">
+    <h4>📊 Stock</h4>
+    <div class="UGRID">
+      <div class="FG" style="margin:0"><label id="lSC">🟠 Big Stock</label><input type="number" id="iSC" placeholder="0" oninput="calcStk()"></div>
+      <div class="FG" style="margin:0"><label id="lSP">🟡 Mid Stock</label><input type="number" id="iSP" placeholder="0" oninput="calcStk()"></div>
+    </div>
+    <div class="FG" style="margin-top:7px;margin-bottom:0"><label id="lSN">🔵 Total Small (auto)</label><input type="number" id="iSN" readonly style="background:#f8f5f0;color:#7a6650"></div>
+  </div>
+
+  <div class="FG"><label>Unit Label</label>
+    <input type="text" id="iUnit" placeholder="पैकेट / pouch / bottle..." style="margin-bottom:6px">
+    <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:4px">
+      <span onclick="document.getElementById('iUnit').value='पैकेट'" style="padding:3px 9px;border-radius:20px;background:#fdf0e8;color:#e05c1a;font-size:10px;font-weight:700;cursor:pointer;border:1.5px solid #f7c4a0">📦 पैकेट</span>
+      <span onclick="document.getElementById('iUnit').value='pouch'" style="padding:3px 9px;border-radius:20px;background:#e8f0fe;color:#1a5fe0;font-size:10px;font-weight:700;cursor:pointer;border:1.5px solid #a8c4f7">🫙 Pouch</span>
+      <span onclick="document.getElementById('iUnit').value='bottle'" style="padding:3px 9px;border-radius:20px;background:#e8f8ee;color:#27ae60;font-size:10px;font-weight:700;cursor:pointer;border:1.5px solid #a0ddb8">🍶 Bottle</span>
+      <span onclick="document.getElementById('iUnit').value='box'" style="padding:3px 9px;border-radius:20px;background:#f0e8fe;color:#8e44ad;font-size:10px;font-weight:700;cursor:pointer;border:1.5px solid #c8a8f7">🗃️ Box</span>
+      <span onclick="document.getElementById('iUnit').value='kg'" style="padding:3px 9px;border-radius:20px;background:#fff4e0;color:#e67e22;font-size:10px;font-weight:700;cursor:pointer;border:1.5px solid #f7d890">⚖️ KG</span>
+      <span onclick="document.getElementById('iUnit').value='ltr'" style="padding:3px 9px;border-radius:20px;background:#e8f8ee;color:#27ae60;font-size:10px;font-weight:700;cursor:pointer;border:1.5px solid #a0ddb8">🧴 Ltr</span>
+      <span onclick="document.getElementById('iUnit').value='pcs'" style="padding:3px 9px;border-radius:20px;background:#fafaf8;color:#7a6650;font-size:10px;font-weight:700;cursor:pointer;border:1.5px solid #e2d5c5">🔵 Pcs</span>
+      <span onclick="document.getElementById('iUnit').value='sachet'" style="padding:3px 9px;border-radius:20px;background:#fff0f5;color:#e74c3c;font-size:10px;font-weight:700;cursor:pointer;border:1.5px solid #f7a8b8">🧧 Sachet</span>
+      <span onclick="document.getElementById('iUnit').value='tin'" style="padding:3px 9px;border-radius:20px;background:#f5f0e8;color:#7a5c1a;font-size:10px;font-weight:700;cursor:pointer;border:1.5px solid #d4b87a">🥫 Tin</span>
+      <span onclick="document.getElementById('iUnit').value='डिब्बा'" style="padding:3px 9px;border-radius:20px;background:#fdf0e8;color:#e05c1a;font-size:10px;font-weight:700;cursor:pointer;border:1.5px solid #f7c4a0">📫 डिब्बा</span>
+    </div>
+  </div>
+  <div class="MBTNS"><button class="btn bo" onclick="cm('mItem')">Cancel</button><button class="btn bp" onclick="savItem()">Save</button></div>
+</div></div>
+
+<div class="MO" id="mMilk"><div class="MD">
+  <h3>🥛 Add Milk Item</h3>
+  <div class="FG"><label>Item Name</label><input type="text" id="miNm" placeholder="AMUL TAAZA..."></div>
+  <div class="FG"><label>Bags / Crate</label><input type="number" id="miBg" placeholder="24"></div>
+  <div class="PRGRID" style="margin-bottom:10px">
+    <div class="PB PBc"><label>👤 Customer ₹</label><input type="number" id="miPc" placeholder="0"></div>
+    <div class="PB PBd"><label>🚚 Distributor ₹</label><input type="number" id="miPd" placeholder="0"></div>
+    <div class="PB PBa"><label>🤝 Agent ₹</label><input type="number" id="miPa" placeholder="0"></div>
+  </div>
+  <div class="MBTNS"><button class="btn bo" onclick="cm('mMilk')">Cancel</button><button class="btn bb" onclick="savMilkI()">Add</button></div>
+</div></div>
+
+<div class="MO" id="mUser"><div class="MD">
+  <h3 id="mUserT">👤 Add User</h3>
+  <input type="hidden" id="uEId">
+  <div class="FG"><label>Full Name</label><input type="text" id="uNm" placeholder="नाम"></div>
+  <div class="FG"><label>Username</label><input type="text" id="uUsr" placeholder="login username"></div>
+  <div class="FG"><label>Password</label><input type="password" id="uPwd" placeholder="password"></div>
+  <div class="FG"><label>Role</label><select id="uRole" onchange="uRC()"><option value="admin">👑 Admin</option><option value="manager">🏆 Manager</option><option value="staff" selected>🙋 Staff</option><option value="agent">🤝 Agent</option><option value="distributor">🚚 Distributor</option><option value="customer">👤 Customer</option></select></div>
+  <div class="FG"><label>Phone</label><input type="text" id="uPh" placeholder="Mobile"></div>
+  <div class="FG"><label>Email</label><input type="email" id="uEm" placeholder="email@gmail.com"></div>
+  <div class="FG" id="uPTRow"><label>💰 Price Type</label><div style="display:flex;gap:5px;flex-wrap:wrap" id="uPTC"></div></div>
+  <div class="FG" id="uCARow"><label>📦 Category Access</label><div class="CATAC" id="uCAC"></div></div>
+  <div class="MBTNS"><button class="btn bo" onclick="cm('mUser')">Cancel</button><button class="btn bp" onclick="savUser()">Save</button></div>
+</div></div>
+
+<div class="MO" id="mOrd"><div class="MD">
+  <h3>📋 New Order</h3>
+  <div class="FG"><label>Customer Name</label><input type="text" id="ordC" placeholder="नाम"></div>
+  <div class="FG"><label>Item</label><select id="ordI"></select></div>
+  <div class="FG"><label>Unit Type</label><select id="ordU"><option value="nag">🔵 Nag/Small</option><option value="patti">🟡 Mid</option><option value="cartoon">🟠 Big</option></select></div>
+  <div class="FG"><label>Qty</label><input type="number" id="ordQ" placeholder="1"></div>
+  <div class="FG"><label>Address</label><textarea id="ordA" rows="2" style="resize:none"></textarea></div>
+  <div class="MBTNS"><button class="btn bo" onclick="cm('mOrd')">Cancel</button><button class="btn bv" onclick="savOrd()">Place Order</button></div>
+</div></div>
+
+<div class="TOAST" id="toast"></div>
+
+<script>
+// ==========  HELPERS  ==========
+var uid=function(){return Date.now().toString(36)+Math.random().toString(36).slice(2,5)};
+var ls=function(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}};
+var ss=function(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+var n2=function(v){return isNaN(v)||!v?0:Math.round(parseFloat(v)*100)/100};
+var fP=function(v){return v?'₹'+n2(v):'—'};
+
+// ==========  EMOJIS  ==========
+var EMOJIS=['🌶️','🫚','🍵','🧆','🍫','🍬','🧴','🧺','🥜','🫙','🍯','🧁','🥛','🧀','🧂','🪔','🍋','🥤','🌿','🥗','🫖','🛒','🏪','🎁','🍎','🥑','🥕','🧅','🧄','🌽','🍅','🥦','🍊','🍋','🫐','🍇','🍓','🥝','🍒','🥭','🍍','🥥','🫒','🌾','🌰','☕','🧋','🥜','🫘','🍱','🥡','🍲','🥘','🫕','🥗','🥙','🥪','🌮','🍕','🍞','🧇','🥞','🧈','🥚','🍳','🥓','🌭','🍔','🍟','🧆','🥙','🌯','🥗','🍿','🧂','🍱','🍜','🍝','🍛','🍣','🍤','🍙','🍚','🍘','🍥','🥮','🍢','🧁','🎂','🍰','🍮','🍭','🍬','🍫','🍿','🍩','🍪','🌰','🥜','🫘','🍯','🧃','🥤','🧋','🍵','☕','🫖','🍺','🍻','🥂','🍷','🥃','🍸','🍹','🧉','🍾','🫗'];
+var selEmoji='📦';
+
+function initEmojiPicker(){
+  var ep=document.getElementById('emojiPicker');
+  if(!ep)return;
+  ep.innerHTML=EMOJIS.map(function(e){
+    return '<div class="EO" onclick="selE(this)" data-e="'+e+'">'+e+'</div>';
+  }).join('');
+}
+function selE(el){
+  document.querySelectorAll('.EO').forEach(function(e){e.classList.remove('ES')});
+  el.classList.add('ES');
+  selEmoji=el.dataset.e||el.textContent;
+}
+
+// ==========  SEED DATA  ==========
+var cats=ls('jss_cats',[]);
+if(!cats.length){
+  cats=[
+    {id:'cat_milk',name:'दूध / Milk',emoji:'🥛'},
+    {id:'cat_masala',name:'मसाले',emoji:'🌶️'},
+    {id:'cat_namk',name:'नमकीन / मिठाई',emoji:'🧁'},
+    {id:'cat_tea',name:'चाय / जूस',emoji:'🍵'},
+    {id:'cat_dry',name:'सूखे मेवे',emoji:'🥜'},
+    {id:'cat_pickle',name:'अचार / पेस्ट',emoji:'🫙'},
+    {id:'cat_choc',name:'चॉकलेट',emoji:'🍫'},
+    {id:'cat_care',name:'पर्सनल केयर',emoji:'🧴'},
+  ];ss('jss_cats',cats);
+}
+
+var DU=[
+  {id:'u1',name:'Admin',username:'admin',password:'admin123',role:'admin',phone:'9001',email:'',priceType:'dist',assignedCats:cats.map(function(c){return c.id}),active:true,loginAllowed:true},
+  {id:'u2',name:'Manager',username:'manager',password:'mgr123',role:'manager',phone:'9002',email:'',priceType:'dist',assignedCats:cats.map(function(c){return c.id}),active:true,loginAllowed:true},
+  {id:'u3',name:'Ravi Distributor',username:'dist1',password:'dist123',role:'distributor',phone:'9003',email:'',priceType:'dist',assignedCats:['cat_milk'],active:true,loginAllowed:true},
+  {id:'u4',name:'Seema Distributor',username:'dist2',password:'dist456',role:'distributor',phone:'9004',email:'',priceType:'dist',assignedCats:['cat_namk'],active:true,loginAllowed:true},
+  {id:'u5',name:'Staff',username:'staff',password:'staff123',role:'staff',phone:'9005',email:'',priceType:'cust',assignedCats:cats.map(function(c){return c.id}),active:true,loginAllowed:true},
+  {id:'u6',name:'Agent',username:'agent',password:'agent123',role:'agent',phone:'9006',email:'',priceType:'agent',assignedCats:cats.map(function(c){return c.id}),active:true,loginAllowed:true},
+  {id:'u7',name:'Customer',username:'cust1',password:'cust123',role:'customer',phone:'9007',email:'',priceType:'cust',assignedCats:['cat_masala','cat_namk','cat_choc'],active:true,loginAllowed:true},
+];
+
+var users=ls('jss_users',DU);
+var items=ls('jss_items',[]);
+var milkItems=ls('jss_milk',[]);
+var sales=ls('jss_sales',[]);
+var orders=ls('jss_orders',[]);
+var cu=null;
+var selPT='mrp';var selCats=[];
+var fpUser=null;var fpOTP=null;var fpTID=null;var fpMode='phone';
+var selRoleVal='';var shopCF='all';var cartCt=0;
+
+if(!items.length){
+  var mi=function(nm,cat,npp,ppc,cC,dC,aC,unit){
+    var npc=npp*ppc;
+    return{id:uid(),name:nm,catId:cat,nagPerPatti:npp,pattiPerCartoon:ppc,nagPerCartoon:npc,
+      crtC:cC,patC:n2(cC/ppc),nagC:n2(cC/npc),
+      crtD:dC,patD:n2(dC/ppc),nagD:n2(dC/npc),
+      crtA:aC,patA:n2(aC/ppc),nagA:n2(aC/npc),
+      stockCartoon:5,stockPatti:3,stockNag:npp*ppc*5+npp*3,
+      unitSmall:'Nag',unitMid:'Patti',unitBig:'Cartoon',unit:unit||'pcs'};
+  };
+  items=[mi('Chuk de Masala','cat_masala',12,24,840,672,750,'pcs'),mi('Zoff Chicken','cat_masala',10,20,600,480,540,'pcs'),mi('Mango Juice','cat_tea',12,48,1440,1152,1296,'pcs'),mi('Mixture Namkeen','cat_namk',12,24,720,576,648,'pcs'),mi('Kaju 250g','cat_dry',6,12,840,672,756,'pcs'),mi('Cadbury DM','cat_choc',12,48,1440,1152,1296,'pcs')];
+  ss('jss_items',items);
+}
+if(!milkItems.length){
+  milkItems=[
+    {id:uid(),name:'AMUL TAAZA',bags:24,priceC:30,priceD:25,priceA:27,orderQty:1,dispatchQty:1},
+    {id:uid(),name:'AMUL GOLD',bags:24,priceC:38,priceD:32,priceA:35,orderQty:4,dispatchQty:4},
+    {id:uid(),name:'BUTTER MILK 300ML',bags:40,priceC:18,priceD:14,priceA:16,orderQty:3,dispatchQty:3},
+    {id:uid(),name:'PANCHAMRUT PANEER 100GM',bags:60,priceC:55,priceD:45,priceA:50,orderQty:1,dispatchQty:1},
+  ];ss('jss_milk',milkItems);
+}
+
+// ==========  CONFIG  ==========
+var RL={admin:'👑 Admin',manager:'🏆 Manager',staff:'🙋 Staff',agent:'🤝 Agent',distributor:'🚚 Distributor',customer:'👤 Customer'};
+var PL={cust:'👤 Customer',dist:'🚚 Distributor',agent:'🤝 Agent',mrp:'📋 MRP'};
+var RC_GRAD={admin:'linear-gradient(135deg,#f6d365,#fda085)',manager:'linear-gradient(135deg,#84fab0,#8fd3f4)',staff:'linear-gradient(135deg,#a8edea,#fed6e3)',agent:'linear-gradient(135deg,#fccb90,#d57eeb)',distributor:'linear-gradient(135deg,#c471f5,#fa71cd)',customer:'linear-gradient(135deg,#ffecd2,#fcb69f)'};
+var ROLE_EMJ={admin:'👑',manager:'🏆',staff:'🙋',agent:'🤝',distributor:'🚚',customer:'👤'};
+
+function getP(item,pt,unit){
+  unit=unit||'nag';
+  if(pt==='cust')return unit==='cartoon'?item.crtC:unit==='patti'?item.patC:item.nagC;
+  if(pt==='dist')return unit==='cartoon'?item.crtD:unit==='patti'?item.patD:item.nagD;
+  if(pt==='agent')return unit==='cartoon'?item.crtA:unit==='patti'?item.patA:item.nagA;
+  return unit==='cartoon'?item.crtC:unit==='patti'?item.patC:item.nagC;
+}
+function getMilkP(it,pt){return pt==='dist'?it.priceD||0:pt==='agent'?it.priceA||0:it.priceC||0}
+
+function userTabs(u){
+  if(u.role==='admin')return['home','cat','items','milk','sales','orders','users','dist'];
+  if(u.role==='manager')return['home','cat','items','milk','sales','orders','dist'];
+  if(u.role==='staff')return['home','sales'];
+  if(u.role==='agent')return['home','items','orders'];
+  if(u.role==='customer')return['home','shop','orders'];
+  if(u.role==='distributor'){
+    var t=['home','dist'];
+    if((u.assignedCats||[]).indexOf('cat_milk')>=0)t.splice(1,0,'milk');
+    return t;
+  }
+  return['home'];
+}
+
+// ==========  CLOCK  ==========
+(function tick(){
+  var now=new Date();
+  var c=document.getElementById('lClk');var d=document.getElementById('lDt');
+  if(c)c.textContent=now.toLocaleTimeString('hi-IN',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  if(d)d.textContent=now.toLocaleDateString('hi-IN',{weekday:'short',day:'numeric',month:'short'});
+  setTimeout(tick,1000);
+})();
+
+// ==========  LOGIN TAB SWITCH  ==========
+function swLTab(tab){
+  var lp=document.getElementById('lPanel');
+  var rp=document.getElementById('rPanel');
+  var lb=document.getElementById('tLBtn');
+  var rb=document.getElementById('tRBtn');
+  if(tab==='login'){
+    lp.style.display='';rp.style.display='none';
+    lb.className='LTAB on';rb.className='LTAB';
+  }else{
+    lp.style.display='none';rp.style.display='block';
+    lb.className='LTAB';rb.className='LTAB on2';
+  }
+}
+// make lPanel display work
+document.getElementById('lPanel').style.cssText='width:100%;max-width:360px';
+
+// ==========  ROLE PREVIEW  ==========
+function prvRole(){
+  var uv=document.getElementById('LU').value.trim();
+  var rp=document.getElementById('rpDiv');
+  var ck=document.getElementById('luChk');
+  if(!uv){rp.style.display='none';ck.textContent='';return}
+  users=ls('jss_users',DU);
+  var f=users.find(function(x){return x.username===uv});
+  if(f){
+    ck.textContent='✅';
+    var av=document.getElementById('rpAv');
+    av.style.background=RC_GRAD[f.role]||'#333';
+    av.textContent=f.name.charAt(0).toUpperCase();
+    document.getElementById('rpNm').textContent=f.name;
+    var ok=f.active&&f.loginAllowed!==false&&f.role!=='customer';
+    document.getElementById('rpRl').innerHTML='<span style="background:rgba(255,255,255,.14);padding:2px 8px;border-radius:20px;font-size:10px;font-weight:800;color:#fff">'+ROLE_EMJ[f.role]+' '+RL[f.role]+'</span>';
+    document.getElementById('rpSt').innerHTML=ok?'<span style="color:#7fff7f;font-size:10px;font-weight:700">✅ Login allowed</span>':f.role==='customer'?'<span style="color:#ff8a80;font-size:10px;font-weight:700">🚫 Customer — App login नहीं</span>':'<span style="color:#ff8a80;font-size:10px;font-weight:700">🔒 Admin ने block किया</span>';
+    document.getElementById('rpChk').textContent=ok?'✅':'🚫';
+    rp.style.display='block';
+  }else{ck.textContent='❌';rp.style.display='none'}
+}
+
+function tgPwd(){
+  var i=document.getElementById('LP');var e=document.getElementById('pEye');
+  i.type=i.type==='password'?'text':'password';e.textContent=i.type==='password'?'👁':'🙈';
+}
+
+// ==========  LOGIN  ==========
+function doLogin(){
+  var u=document.getElementById('LU').value.trim();
+  var p=document.getElementById('LP').value;
+  users=ls('jss_users',DU);
+  var f=users.find(function(x){return x.username===u&&x.password===p});
+  var err=function(m){var el=document.getElementById('LERR');el.textContent=m;el.style.display='block';setTimeout(function(){el.style.display='none'},3000)};
+  if(!f){err('❌ Username या Password गलत है');return}
+  if(f.role==='customer'){err('🚫 Customer यहाँ login नहीं कर सकते');return}
+  if(!f.active){err('🔒 Account blocked है');return}
+  if(f.loginAllowed===false){err('⛔ Admin ने login बंद किया है');return}
+  cu=f;sessionStorage.setItem('jss_sess',JSON.stringify(f));initApp();
+}
+document.getElementById('LP').addEventListener('keyup',function(e){if(e.key==='Enter')doLogin()});
+
+function doLogout(){
+  cu=null;sessionStorage.removeItem('jss_sess');
+  document.getElementById('LS').style.display='flex';
+  document.getElementById('AH').style.display='none';
+  document.getElementById('AM').style.display='none';
+  document.getElementById('ABN').style.display='none';
+  document.getElementById('LU').value='';
+  document.getElementById('LP').value='';
+  document.getElementById('rpDiv').style.display='none';
+  document.getElementById('luChk').textContent='';
+  toast('Logged out ✓');
+}
+
+// ==========  INIT APP  ==========
+function initApp(){
+  document.getElementById('LS').style.display='none';
+  document.getElementById('AH').style.display='block';
+  document.getElementById('AM').style.display='block';
+  document.getElementById('ABN').style.display='flex';
+  document.getElementById('HN').textContent=cu.name;
+  document.getElementById('HB').textContent=RL[cu.role]||'';
+  document.getElementById('oDt').value=new Date().toISOString().slice(0,10);
+  var tabs=userTabs(cu);
+  var ALL=['home','cat','items','milk','sales','orders','users','dist','shop'];
+  ALL.forEach(function(t){
+    var show=tabs.indexOf(t)>=0;
+    ['t-','b-'].forEach(function(p){var el=document.getElementById(p+t);if(el)el.classList.toggle('hd',!show)});
+  });
+  var canEdit=['admin','manager'].indexOf(cu.role)>=0;
+  ['bAC','bAI','bAM'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display=canEdit?'':'none'});
+  rAll();sw('home');
+  initEmojiPicker();
+}
+function rAll(){buildDash();rCats();rItems();rMilk();rSalesSel();rSalesLog();rOrders();rUsers();rDist();rShop()}
+
+// ==========  TAB SWITCH  ==========
+function sw(tab){
+  var tabs=userTabs(cu);
+  if(tabs.indexOf(tab)<0){toast('⛔ Access denied');return}
+  var ALL=['home','cat','items','milk','sales','orders','users','dist','shop'];
+  ALL.forEach(function(t){
+    document.getElementById('sec-'+t).classList.remove('on');
+    var tb=document.getElementById('t-'+t);if(tb)tb.classList.remove('on');
+    var bn=document.getElementById('b-'+t);if(bn)bn.classList.remove('on');
+  });
+  document.getElementById('sec-'+tab).classList.add('on');
+  var tb=document.getElementById('t-'+tab);if(tb)tb.classList.add('on');
+  var bn=document.getElementById('b-'+tab);if(bn)bn.classList.add('on');
+  if(tab==='items')fillCatFil();
+  if(tab==='orders')fillOrdI();
+  if(tab==='sales')rSalesSel();
+}
+
+// ==========  DASHBOARD  ==========
+function buildDash(){
+  var today=new Date().toISOString().slice(0,10);
+  var tAmt=sales.filter(function(s){return s.date===today}).reduce(function(a,s){return a+s.amount},0);
+  var pOrd=orders.filter(function(o){return o.status==='Pending'}).length;
+  document.getElementById('dshC').innerHTML=[
+    {i:'📦',l:'Categories',v:cats.length,c:'#e05c1a'},
+    {i:'🏷️',l:'Items',v:items.length,c:'#1a5fe0'},
+    {i:'💰',l:"Today Sales",v:'₹'+tAmt.toFixed(0),c:'#27ae60'},
+    {i:'📋',l:'Pending Orders',v:pOrd,c:'#8e44ad'},
+  ].map(function(s){return'<div class="DC"><div style="font-size:22px;margin-bottom:3px">'+s.i+'</div><div style="font-size:18px;font-weight:800;color:'+s.c+'">'+s.v+'</div><div style="font-size:9px;color:#7a6650;font-weight:700;margin-top:2px">'+s.l+'</div></div>'}).join('');
+  var tabs=userTabs(cu);
+  var qc={cat:'bp',items:'bp',milk:'bb',sales:'bg',orders:'bv',users:'bp',dist:'bb',shop:'br'};
+  var ql={home:'🏠 Home',cat:'📦 Category',items:'🏷️ Items',milk:'🥛 Milk',sales:'💰 Sales',orders:'📋 Orders',users:'👥 Users',dist:'🚚 Dispatch',shop:'🛍️ Shop'};
+  var info='';
+  if(cu.role==='distributor'){var acN=cats.filter(function(c){return(cu.assignedCats||[]).indexOf(c.id)>=0}).map(function(c){return'<span style="background:#e8f0fe;color:#1a5fe0;padding:2px 7px;border-radius:20px;font-size:9px;font-weight:700;margin:2px;display:inline-flex">'+c.emoji+' '+c.name+'</span>'}).join('');info='<div class="IP"><div style="font-size:10px;color:#7a6650;font-weight:700">आपकी Categories:</div><div style="margin-top:5px">'+acN+'</div><div style="font-size:9px;color:#7a6650;margin-top:5px">Price: <b>'+PL[cu.priceType]+'</b></div></div>';}
+  if(cu.role==='customer'){var acN2=cats.filter(function(c){return(cu.assignedCats||[]).indexOf(c.id)>=0}).map(function(c){return'<span style="background:#e8f0fe;color:#1a5fe0;padding:2px 7px;border-radius:20px;font-size:9px;font-weight:700;margin:2px;display:inline-flex">'+c.emoji+' '+c.name+'</span>'}).join('');info='<div class="IP"><div style="font-size:10px;color:#7a6650;font-weight:700">आपके Products:</div><div style="margin-top:5px">'+acN2+'</div><div style="font-size:9px;color:#7a6650;margin-top:5px">Price: <b style="color:#e74c3c">'+PL[cu.priceType]+'</b></div></div>';}
+  document.getElementById('qaC').innerHTML=info+'<div class="IP"><div style="font-size:10px;color:#7a6650;font-weight:700">Welcome, '+cu.name+'! 👋</div><div style="font-size:12px;font-weight:800;margin-top:2px">'+RL[cu.role]+'</div></div>'+tabs.filter(function(t){return t!=='home'}).map(function(t){return'<button class="btn '+( qc[t]||'bo')+'" style="width:100%;justify-content:center" onclick="sw(\''+t+'\')">'+ql[t]+'</button>'}).join('');
+}
+
+// ==========  CATEGORIES  ==========
+function rCats(){
+  var q=(document.getElementById('CQ')||{value:''}).value.toLowerCase();
+  var grid=document.getElementById('catGrid');
+  var canE=['admin','manager'].indexOf(cu.role)>=0;
+  var canD=cu.role==='admin';
+  var f=cats.filter(function(c){return c.name.toLowerCase().indexOf(q)>=0});
+  if(!f.length){grid.innerHTML='<div class="EMP" style="grid-column:1/-1"><div class="EI">🔍</div><p>नहीं मिली</p></div>';return}
+  grid.innerHTML=f.map(function(c){
+    var cnt=items.filter(function(i){return i.catId===c.id}).length;
+    return'<div class="CC"><div class="CI">'+c.emoji+'</div><div class="CB"><div class="CN">'+c.name+'</div><div class="CM">'+cnt+' items</div></div>'+(canE?'<div class="CA"><button class="IB IE" onclick="event.stopPropagation();eCat(\''+c.id+'\')">✏️</button>'+(canD?'<button class="IB ID" onclick="event.stopPropagation();dCat(\''+c.id+'\')">🗑</button>':'')+'</div>':'')+'</div>';
+  }).join('');
+}
+function oCatM(){document.getElementById('mCatT').textContent='📦 Add Category';document.getElementById('cEId').value='';document.getElementById('cNm').value='';document.querySelectorAll('.EO').forEach(function(e){e.classList.remove('ES')});selEmoji='📦';document.getElementById('mCat').classList.add('op')}
+function eCat(id){var c=cats.find(function(x){return x.id===id});if(!c)return;document.getElementById('mCatT').textContent='✏️ Edit';document.getElementById('cEId').value=id;document.getElementById('cNm').value=c.name;selEmoji=c.emoji;document.querySelectorAll('.EO').forEach(function(e){e.classList.toggle('ES',e.dataset.e===c.emoji||e.textContent===c.emoji)});document.getElementById('mCat').classList.add('op')}
+function dCat(id){if(!confirm('Delete?'))return;cats=cats.filter(function(c){return c.id!==id});items=items.filter(function(i){return i.catId!==id});ss('jss_cats',cats);ss('jss_items',items);rCats();toast('Deleted ✓')}
+function savCat(){var nm=document.getElementById('cNm').value.trim();if(!nm){toast('Name required!');return}var id=document.getElementById('cEId').value;if(id){var c=cats.find(function(x){return x.id===id});c.name=nm;c.emoji=selEmoji}else cats.push({id:'cat_'+uid(),name:nm,emoji:selEmoji});ss('jss_cats',cats);cm('mCat');rCats();toast('Saved ✓')}
+
+// ==========  ITEMS  ==========
+function fillCatFil(){var sel=document.getElementById('catFil');var cur=sel.value;sel.innerHTML='<option value="">All Categories</option>'+cats.map(function(c){return'<option value="'+c.id+'" '+(cur===c.id?'selected':'')+'>'+c.emoji+' '+c.name+'</option>'}).join('')}
+function rItems(){
+  var q=(document.getElementById('IQ')||{value:''}).value.toLowerCase();
+  var cf=(document.getElementById('catFil')||{value:''}).value;
+  var list=document.getElementById('itemList');
+  var canE=['admin','manager'].indexOf(cu.role)>=0;var canD=cu.role==='admin';
+  var pt=cu.priceType||'cust';
+  var ac=cu.assignedCats||cats.map(function(c){return c.id});
+  var restricted=['agent','customer','distributor'].indexOf(cu.role)>=0;
+  var f=items.filter(function(i){return i.name.toLowerCase().indexOf(q)>=0&&(!cf||i.catId===cf)&&(!restricted||ac.indexOf(i.catId)>=0)});
+  if(!f.length){list.innerHTML='<div class="EMP"><div class="EI">🏷️</div><p>कोई item नहीं</p></div>';return}
+  list.innerHTML=f.map(function(i){
+    var cat=cats.find(function(c){return c.id===i.catId});
+    var npp=i.nagPerPatti||1,ppc=i.pattiPerCartoon||1,npc=i.nagPerCartoon||(npp*ppc);
+    var uS=i.unitSmall||'Nag',uM=i.unitMid||'Patti',uB=i.unitBig||'Cartoon';
+    var pCrt=getP(i,pt,'cartoon'),pPat=getP(i,pt,'patti'),pNag=getP(i,pt,'nag');
+    var pc=pt==='cust'?'PRC':pt==='dist'?'PRD':'PRA';
+    var stk=i.stockNag||0;var stkCls=stk<=0?'color:#e74c3c;':stk<20?'color:#e67e22;':'color:#27ae60;';
+    return'<div class="IC"><div class="ICH"><div class="ICEMJ">'+(cat?cat.emoji:'📦')+'</div><div class="ICIN"><div class="ICNM">'+i.name+'</div><span class="ICCAT">'+(cat?cat.name:'—')+'</span><span style="font-size:9px;'+stkCls+'font-weight:700;margin-left:6px">'+stk+' '+uS+'</span>'+(canE?'<div style="font-size:9px;color:#7a6650;margin-top:1px">'+PL[pt]+' price</div>':'')+'</div>'+(canE?'<div style="display:flex;gap:4px"><button class="IB IE" onclick="eItem(\''+i.id+'\')">✏️</button>'+(canD?'<button class="IB ID" onclick="dItem(\''+i.id+'\')">🗑</button>':'')+'</div>':'')+'</div><div class="ICUN"><div class="UC"><div class="UCI">🔵</div><div class="UCL">'+uS+'</div><div class="UCQ">1</div><div class="UCPR '+pc+'">'+fP(pNag)+'</div></div><div class="UC"><div class="UCI">🟡</div><div class="UCL">'+uM+'</div><div class="UCQ">'+npp+' '+uS+'</div><div class="UCPR '+pc+'">'+fP(pPat)+'</div></div><div class="UC"><div class="UCI">🟠</div><div class="UCL">'+uB+'</div><div class="UCQ">'+npc+' '+uS+'</div><div class="UCPR '+pc+'">'+fP(pCrt)+'</div></div></div>'+(canE?'<div class="ICPR"><div class="PR"><div class="PRL">👤 Customer</div><div class="PRV" style="color:#e74c3c">'+fP(i.nagC)+'</div></div><div class="PR"><div class="PRL">🚚 Distributor</div><div class="PRV" style="color:#1a5fe0">'+fP(i.nagD)+'</div></div><div class="PR"><div class="PRL">🤝 Agent</div><div class="PRV" style="color:#8e44ad">'+fP(i.nagA)+'</div></div></div>':'<div style="background:#fafaf8;border-top:1px solid #e2d5c5;padding:6px;text-align:center;font-size:10px;color:#7a6650">Stock: 🟠 '+(i.stockCartoon||0)+' '+uB+' · 🟡 '+(i.stockPatti||0)+' '+uM+' · 🔵 '+(i.stockNag||0)+' '+uS+'</div>')+'</div>';
+  }).join('');
+}
+function fillItemCat(s){document.getElementById('iCat').innerHTML=cats.map(function(c){return'<option value="'+c.id+'" '+(s===c.id?'selected':'')+'>'+c.emoji+' '+c.name+'</option>'}).join('')}
+function oItemM(){document.getElementById('mItemT').textContent='🏷️ Add Item';document.getElementById('iEId').value='';['iNm','iNPP','iPPC','iSC','iSP','iSN','iUnit','uL1','uL2','uL3'].forEach(function(id){document.getElementById(id).value=''});['pCC','pCP','pCN','pDC','pDP','pDN','pAC','pAP','pAN'].forEach(function(id){document.getElementById(id).value=''});setUT('Nag','Patti','Cartoon');fillItemCat();document.getElementById('mItem').classList.add('op')}
+function eItem(id){var i=items.find(function(x){return x.id===id});if(!i)return;document.getElementById('mItemT').textContent='✏️ Edit Item';document.getElementById('iEId').value=id;document.getElementById('iNm').value=i.name;document.getElementById('iNPP').value=i.nagPerPatti||'';document.getElementById('iPPC').value=i.pattiPerCartoon||'';document.getElementById('pCC').value=i.crtC||'';document.getElementById('pCP').value=i.patC||'';document.getElementById('pCN').value=i.nagC||'';document.getElementById('pDC').value=i.crtD||'';document.getElementById('pDP').value=i.patD||'';document.getElementById('pDN').value=i.nagD||'';document.getElementById('pAC').value=i.crtA||'';document.getElementById('pAP').value=i.patA||'';document.getElementById('pAN').value=i.nagA||'';document.getElementById('iSC').value=i.stockCartoon||'';document.getElementById('iSP').value=i.stockPatti||'';document.getElementById('iSN').value=i.stockNag||'';document.getElementById('iUnit').value=i.unit||'';document.getElementById('uL1').value=i.unitSmall||'Nag';document.getElementById('uL2').value=i.unitMid||'Patti';document.getElementById('uL3').value=i.unitBig||'Cartoon';updUL();fillItemCat(i.catId);calcP();document.getElementById('mItem').classList.add('op')}
+function dItem(id){if(!confirm('Delete?'))return;items=items.filter(function(i){return i.id!==id});ss('jss_items',items);rItems();toast('Deleted ✓')}
+function setUT(s,m,b){document.getElementById('uL1').value=s;document.getElementById('uL2').value=m;document.getElementById('uL3').value=b;updUL()}
+function setQ(npp,ppc){document.getElementById('iNPP').value=npp;document.getElementById('iPPC').value=ppc;calcP()}
+function updUL(){var s=document.getElementById('uL1').value||'Nag';var m=document.getElementById('uL2').value||'Patti';var b=document.getElementById('uL3').value||'Cartoon';var set=function(id,t){var el=document.getElementById(id);if(el)el.textContent=t};set('lNPP','🔵 Ek '+m+' में '+s);set('lPPC','🟠 '+b+' में '+m);set('lB',b);set('lM',m);set('lS',s);set('lS2',s);set('lSC','🟠 '+b+' Stock');set('lSP','🟡 '+m+' Stock');set('lSN','🔵 Total '+s+' (auto)')}
+function calcP(){var npp=parseInt(document.getElementById('iNPP').value)||0;var ppc=parseInt(document.getElementById('iPPC').value)||0;var npc=npp*ppc;document.getElementById('cNPC').textContent=npc||'—';document.getElementById('cNPP').textContent=npp||'—';['C','D','A'].forEach(function(r){autoC(r)});calcStk()}
+function autoC(r){var npp=parseInt(document.getElementById('iNPP').value)||1;var ppc=parseInt(document.getElementById('iPPC').value)||1;var npc=npp*ppc;var crt=parseFloat(document.getElementById('p'+r+'C').value)||0;if(crt&&ppc){document.getElementById('p'+r+'P').value=n2(crt/ppc)||'';document.getElementById('p'+r+'N').value=n2(crt/npc)||''}}
+function calcStk(){var npp=parseInt(document.getElementById('iNPP').value)||1;var ppc=parseInt(document.getElementById('iPPC').value)||1;var sc=parseInt(document.getElementById('iSC').value)||0;var sp=parseInt(document.getElementById('iSP').value)||0;document.getElementById('iSN').value=sc*npp*ppc+sp*npp}
+function savItem(){
+  var nm=document.getElementById('iNm').value.trim();if(!nm){toast('Name required!');return}
+  var npp=parseInt(document.getElementById('iNPP').value)||1;var ppc=parseInt(document.getElementById('iPPC').value)||1;var npc=npp*ppc;
+  var gN=function(id){return parseFloat(document.getElementById(id).value)||0};
+  var sc=parseInt(document.getElementById('iSC').value)||0;var sp=parseInt(document.getElementById('iSP').value)||0;
+  var o={name:nm,catId:document.getElementById('iCat').value,nagPerPatti:npp,pattiPerCartoon:ppc,nagPerCartoon:npc,crtC:gN('pCC'),patC:gN('pCP')||n2(gN('pCC')/ppc),nagC:gN('pCN')||n2(gN('pCC')/npc),crtD:gN('pDC'),patD:gN('pDP')||n2(gN('pDC')/ppc),nagD:gN('pDN')||n2(gN('pDC')/npc),crtA:gN('pAC'),patA:gN('pAP')||n2(gN('pAC')/ppc),nagA:gN('pAN')||n2(gN('pAC')/npc),stockCartoon:sc,stockPatti:sp,stockNag:sc*npc+sp*npp,unit:document.getElementById('iUnit').value||'pcs',unitSmall:document.getElementById('uL1').value||'Nag',unitMid:document.getElementById('uL2').value||'Patti',unitBig:document.getElementById('uL3').value||'Cartoon'};
+  var id=document.getElementById('iEId').value;
+  if(id){var i=items.find(function(x){return x.id===id});Object.assign(i,o)}else items.push(Object.assign({id:uid()},o));
+  ss('jss_items',items);cm('mItem');rItems();toast('Saved ✓');
+}
+
+// ==========  MILK  ==========
+function rMilk(){
+  var canE=['admin','manager','distributor'].indexOf(cu.role)>=0;var canD=cu.role==='admin';var pt=cu.priceType||'dist';
+  document.getElementById('milkBody').innerHTML=milkItems.map(function(i){return'<tr><td style="font-weight:800">'+i.name+'</td><td>'+i.bags+'</td><td>'+(canE?'<input type="number" min="0" value="'+(i.orderQty||0)+'" onchange="updM(\''+i.id+'\',\'orderQty\',this.value)">':i.orderQty||0)+'</td><td>'+(canE?'<input type="number" min="0" value="'+(i.dispatchQty||0)+'" onchange="updM(\''+i.id+'\',\'dispatchQty\',this.value)" style="border-color:#1a5fe0">':i.dispatchQty||0)+'</td><td style="color:#1a5fe0;font-weight:800">₹'+getMilkP(i,pt)+'</td><td>'+(canD?'<button class="IB ID" onclick="dMilk(\''+i.id+'\')">🗑</button>':'')+'</td></tr>'}).join('');
+  calcT();
+}
+function updM(id,f,v){var it=milkItems.find(function(i){return i.id===id});if(it){it[f]=parseFloat(v)||0;ss('jss_milk',milkItems);calcT()}}
+function dMilk(id){milkItems=milkItems.filter(function(i){return i.id!==id});ss('jss_milk',milkItems);rMilk();toast('Removed ✓')}
+function calcT(){var pt=cu.priceType||'dist';var tQ=milkItems.reduce(function(a,i){return a+(i.dispatchQty||0)},0);var tB=milkItems.reduce(function(a,i){return a+(i.dispatchQty||0)*(i.bags||1)},0);var tV=milkItems.reduce(function(a,i){return a+(i.dispatchQty||0)*getMilkP(i,pt)},0);document.getElementById('tQ').textContent=tQ.toFixed(2);document.getElementById('tB').textContent=tB;document.getElementById('tV').textContent='₹'+tV.toFixed(2)}
+function oMilkM(){['miNm','miBg','miPc','miPd','miPa'].forEach(function(id){document.getElementById(id).value=''});document.getElementById('mMilk').classList.add('op')}
+function savMilkI(){var nm=document.getElementById('miNm').value.trim();if(!nm){toast('Name!');return}milkItems.push({id:uid(),name:nm,bags:parseInt(document.getElementById('miBg').value)||0,priceC:parseFloat(document.getElementById('miPc').value)||0,priceD:parseFloat(document.getElementById('miPd').value)||0,priceA:parseFloat(document.getElementById('miPa').value)||0,orderQty:0,dispatchQty:0});ss('jss_milk',milkItems);cm('mMilk');rMilk();toast('Added ✓')}
+function saveDisp(){var d=ls('jss_dispatches',[]);var pt=cu.priceType||'dist';var tV=milkItems.reduce(function(a,i){return a+(i.dispatchQty||0)*getMilkP(i,pt)},0);d.push({id:uid(),date:new Date().toISOString(),orderNo:document.getElementById('oNo').value,orderDate:document.getElementById('oDt').value,shift:document.getElementById('oSh').value,booth:document.getElementById('oBo').value,remarks:document.getElementById('oRem').value,by:cu.name,role:cu.role,totalValue:tV,items:JSON.parse(JSON.stringify(milkItems))});ss('jss_dispatches',d);rDist();toast('Saved ✓')}
+function clrDisp(){if(!confirm('Clear?'))return;milkItems.forEach(function(i){i.orderQty=0;i.dispatchQty=0});ss('jss_milk',milkItems);rMilk();toast('Cleared ✓')}
+
+// ==========  SALES  ==========
+function rSalesSel(){var s=document.getElementById('sItem');if(!s)return;var pt=cu.priceType||'cust';s.innerHTML=items.length?items.map(function(i){return'<option value="'+i.id+'">'+i.name+'</option>'}).join(''):'<option>No items</option>';updSPrice()}
+function updSPrice(){var s=document.getElementById('sItem');var ut=document.getElementById('sUnit').value;var pt=cu.priceType||'cust';if(!s||!s.value)return;var it=items.find(function(x){return x.id===s.value});if(it)document.getElementById('sPrice').value=getP(it,pt,ut)||0}
+document.addEventListener('DOMContentLoaded',function(){var si=document.getElementById('sItem');var su=document.getElementById('sUnit');if(si)si.addEventListener('change',updSPrice);if(su)su.addEventListener('change',updSPrice)});
+function recSale(){var s=document.getElementById('sItem');if(!s.value){toast('Item select करें');return}var ut=document.getElementById('sUnit').value;var pt=cu.priceType||'cust';var qty=parseFloat(document.getElementById('sQty').value)||1;var it=items.find(function(x){return x.id===s.value});var price=getP(it,pt,ut)||0;sales.push({id:uid(),date:new Date().toISOString().slice(0,10),time:new Date().toLocaleTimeString('hi-IN'),itemName:s.options[s.selectedIndex].text,qty:qty,unitType:ut,price:price,amount:qty*price,customer:document.getElementById('sCust').value||'—',mode:document.getElementById('sPay').value,by:cu.name,priceType:pt});ss('jss_sales',sales);document.getElementById('sQty').value='';document.getElementById('sCust').value='';rSalesLog();buildDash();toast('Sale recorded ✓')}
+function rSalesLog(){var log=document.getElementById('saleLog');if(!log)return;var today=new Date().toISOString().slice(0,10);var ts=sales.filter(function(s){return s.date===today}).reverse();var ue={nag:'🔵',patti:'🟡',cartoon:'🟠'};if(!ts.length){log.innerHTML='<div class="EMP"><div class="EI">💰</div><p>आज कोई sale नहीं</p></div>';return}log.innerHTML=ts.map(function(s){return'<div class="SE"><div class="SH2"><div class="SN">'+s.itemName+'</div><div class="SA">₹'+s.amount.toFixed(2)+'</div></div><div class="SM">'+(ue[s.unitType]||'')+' '+s.qty+' '+( s.unitType||'')+' · '+s.mode+' · '+s.time+' · '+s.customer+'</div></div>'}).join('')}
+
+// ==========  ORDERS  ==========
+function fillOrdI(){var sel=document.getElementById('ordI');if(!sel)return;sel.innerHTML=items.map(function(i){return'<option value="'+i.id+'">'+i.name+'</option>'}).join('')}
+function oOrdM(){fillOrdI();['ordC','ordQ','ordA'].forEach(function(id){document.getElementById(id).value=''});document.getElementById('mOrd').classList.add('op')}
+function savOrd(){var cust=document.getElementById('ordC').value.trim();var sel=document.getElementById('ordI');var ut=document.getElementById('ordU').value;if(!cust||!sel.value){toast('Customer & item required!');return}var qty=parseFloat(document.getElementById('ordQ').value)||1;var pt=cu.priceType||'cust';var it=items.find(function(x){return x.id===sel.value});var price=getP(it,pt,ut)||0;orders.push({id:uid(),date:new Date().toISOString().slice(0,10),time:new Date().toLocaleTimeString('hi-IN'),customer:cust,itemName:sel.options[sel.selectedIndex].text,qty:qty,unitType:ut,price:price,total:qty*price,address:document.getElementById('ordA').value,status:'Pending',by:cu.name,priceType:pt});ss('jss_orders',orders);cm('mOrd');rOrders();toast('Order placed ✓')}
+function rOrders(){var list=document.getElementById('ordList');if(!list)return;var isAdm=['admin','manager'].indexOf(cu.role)>=0;var ords=isAdm?orders:orders.filter(function(o){return o.by===cu.name||o.customer===cu.name});var ue={nag:'🔵',patti:'🟡',cartoon:'🟠'};if(!ords.length){list.innerHTML='<div class="EMP"><div class="EI">📋</div><p>कोई order नहीं</p></div>';return}list.innerHTML=ords.slice().reverse().map(function(o){return'<div class="OC"><div class="OH"><div><div style="font-size:13px;font-weight:800">'+o.customer+'</div><div class="OID">#'+o.id.slice(-5).toUpperCase()+' · '+o.date+'</div></div><span class="OST '+(o.status==='Pending'?'OSP':o.status==='Confirmed'?'OSC':'OSD')+'">'+o.status+'</span></div><div style="font-size:11px">'+(ue[o.unitType]||'')+' '+o.itemName+' × '+o.qty+'</div><div style="font-size:13px;font-weight:800;color:#e05c1a;margin-top:4px">₹'+o.total.toFixed(2)+'</div>'+(o.address?'<div style="font-size:9px;color:#7a6650;margin-top:2px">📍 '+o.address+'</div>':'')+(isAdm?'<div style="display:flex;gap:5px;margin-top:7px"><button class="btn bsm bg" onclick="updOrd(\''+o.id+'\',\'Confirmed\')">✅</button><button class="btn bsm bb" onclick="updOrd(\''+o.id+'\',\'Delivered\')">🚚</button><button class="btn bsm br" onclick="dOrd(\''+o.id+'\')">🗑</button></div>':'')+'</div>'}).join('')}
+function updOrd(id,st){var o=orders.find(function(x){return x.id===id});if(o)o.status=st;ss('jss_orders',orders);rOrders();toast('Updated ✓')}
+function dOrd(id){orders=orders.filter(function(o){return o.id!==id});ss('jss_orders',orders);rOrders();toast('Deleted ✓')}
+
+// ==========  USERS  ==========
+function rUsers(){
+  var grid=document.getElementById('usersGrid');if(!grid)return;
+  if(cu.role!=='admin'){grid.innerHTML='<div class="EMP"><div class="EI">🔐</div><p>Admin Only</p></div>';return}
+  users=ls('jss_users',DU);
+  var reqs=ls('jss_regReqs',[]).filter(function(r){return r.status==='Pending'});
+  var reqH=reqs.length?'<div style="background:linear-gradient(135deg,rgba(247,129,58,.1),rgba(247,129,58,.05));border:1.5px solid rgba(247,129,58,.3);border-radius:13px;padding:12px;margin-bottom:13px"><div style="font-size:12px;font-weight:800;color:#e05c1a;margin-bottom:9px">📋 New Requests ('+reqs.length+')</div>'+reqs.map(function(r){return'<div style="background:#fff;border-radius:10px;padding:10px 11px;margin-bottom:7px;border:1px solid #e2d5c5"><div style="display:flex;align-items:center;gap:8px"><div style="width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,#f5d7b8,#f9c09a);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">'+(ROLE_EMJ[r.role]||'👤')+'</div><div style="flex:1"><div style="font-size:12px;font-weight:800">'+r.name+'</div><div style="font-size:10px;color:#7a6650">📱 '+r.phone+' · 📧 '+r.email+'</div><div style="font-size:10px;color:#7a6650">🏠 '+r.address+'</div><span style="background:#fff4e0;color:#e05c1a;padding:2px 7px;border-radius:20px;font-size:9px;font-weight:800">'+RL[r.role]+' Request</span></div></div><div style="display:flex;gap:5px;margin-top:8px"><button class="btn bsm bg" style="flex:1;justify-content:center" onclick="aprReg(\''+r.id+'\')">✅ Approve</button><button class="btn bsm br" onclick="rejReg(\''+r.id+'\')">✕ Reject</button></div></div>'}).join('')+'</div>':'';
+  grid.innerHTML=reqH+users.map(function(u){
+    var ac=u.assignedCats||[];var acN=cats.filter(function(c){return ac.indexOf(c.id)>=0}).map(function(c){return c.emoji}).join(' ');
+    var loginOK=u.loginAllowed!==false&&u.active;var isC=u.role==='customer';
+    return'<div class="UCR"><div class="UCRT"><div class="AV AV'+u.role+'">'+u.name.charAt(0).toUpperCase()+'</div><div class="UD"><div class="UN">'+u.name+'</div><div class="UM"><span class="SD '+(u.active?'SON':'SOF')+'"></span>@'+u.username+' · '+(u.phone||'—')+'</div><span class="RT RT'+u.role+'">'+RL[u.role]+'</span><span style="font-size:9px;color:#7a6650;margin-left:5px">'+(PL[u.priceType]||'—')+'</span><div style="margin-top:3px;font-size:12px">'+(acN||'<span style="font-size:9px;color:#7a6650">—</span>')+'</div></div><div style="display:flex;flex-direction:column;gap:4px;align-items:flex-end"><button class="IB IE" onclick="eUser(\''+u.id+'\')">✏️</button>'+(u.id!=='u1'?'<button style="background:'+(loginOK?'#e8f8ee':'#fde8e8')+';color:'+(loginOK?'#27ae60':'#e74c3c')+';border:1.5px solid '+(loginOK?'#a0ddb8':'#f7a8b8')+';border-radius:8px;padding:3px 7px;font-size:9px;font-weight:800;cursor:pointer" onclick="tgLgn(\''+u.id+'\')">'+(loginOK?'✅ ON':'🚫 OFF')+'</button>':'')+(isC?'<span style="font-size:8px;background:#fff0f5;color:#e74c3c;padding:2px 6px;border-radius:20px;font-weight:700;border:1px solid #f7a8b8">🚫 No Login</span>':'')+'<button style="background:#f4f0eb;border:1px solid #e2d5c5;border-radius:6px;padding:2px 7px;font-size:10px;cursor:pointer" onclick="tgCFG(\''+u.id+'\')">⚙️</button></div></div><div class="UCFG" id="ucfg_'+u.id+'"><div style="font-size:9px;font-weight:800;color:#7a6650;margin-bottom:5px;letter-spacing:.3px">💰 PRICE TYPE</div><div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px">'+['cust','dist','agent','mrp'].map(function(pt){return'<span class="PTC '+(u.priceType===pt?'s'+pt:'')+'" onclick="setPT(\''+u.id+'\',\''+pt+'\')" style="cursor:pointer">'+PL[pt]+'</span>'}).join('')+'</div><div style="font-size:9px;font-weight:800;color:#7a6650;margin-bottom:5px;letter-spacing:.3px">📦 CATEGORY ACCESS</div><div class="CATAC">'+cats.map(function(c){var has=ac.indexOf(c.id)>=0;var isMilk=c.id==='cat_milk'&&u.role==='distributor';return'<div class="CATC '+(has?'on':'')+'" onclick="tgCatA(\''+u.id+'\',\''+c.id+'\')"><div class="CHK">'+(has?'✓':'')+'</div><span>'+c.emoji+' '+c.name+'</span>'+(isMilk&&has?' <span style="font-size:8px;color:#1a5fe0">🥛</span>':'')+'</div>'}).join('')+'</div><button class="btn bg bsm" style="width:100%;justify-content:center;margin-top:9px" onclick="tgCFG(\''+u.id+'\')">✓ Done</button></div></div>';
+  }).join('');
+}
+function tgCFG(id){var el=document.getElementById('ucfg_'+id);el.classList.toggle('op')}
+function setPT(uid2,pt){var u=users.find(function(x){return x.id===uid2});if(!u)return;u.priceType=pt;ss('jss_users',users);rUsers();toast('Price set ✓')}
+function tgCatA(uid2,catId){var u=users.find(function(x){return x.id===uid2});if(!u)return;if(!u.assignedCats)u.assignedCats=[];var idx=u.assignedCats.indexOf(catId);if(idx>=0)u.assignedCats.splice(idx,1);else u.assignedCats.push(catId);ss('jss_users',users);rUsers();if(u.role==='distributor')toast(u.assignedCats.indexOf('cat_milk')>=0?'🥛 Milk tab ON':'Milk tab OFF');else toast('Access updated ✓')}
+function tgLgn(id){var u=users.find(function(x){return x.id===id});if(!u||u.id==='u1')return;u.loginAllowed=u.loginAllowed===false?true:false;ss('jss_users',users);rUsers();toast(u.loginAllowed===false?'🚫 Login blocked':'✅ Login allowed')}
+function oUserM(){document.getElementById('mUserT').textContent='👤 Add User';document.getElementById('uEId').value='';['uNm','uUsr','uPwd','uPh','uEm'].forEach(function(id){document.getElementById(id).value=''});document.getElementById('uRole').value='staff';bPTC('mrp');bCAC([]);document.getElementById('mUser').classList.add('op')}
+function eUser(id){users=ls('jss_users',DU);var u=users.find(function(x){return x.id===id});if(!u)return;document.getElementById('mUserT').textContent='✏️ Edit User';document.getElementById('uEId').value=id;document.getElementById('uNm').value=u.name;document.getElementById('uUsr').value=u.username;document.getElementById('uPwd').value=u.password;document.getElementById('uRole').value=u.role;document.getElementById('uPh').value=u.phone||'';document.getElementById('uEm').value=u.email||'';bPTC(u.priceType||'mrp');bCAC(u.assignedCats||[]);document.getElementById('mUser').classList.add('op')}
+function bPTC(cur){selPT=cur;document.getElementById('uPTC').innerHTML=['cust','dist','agent','mrp'].map(function(pt){return'<span class="PTC '+(selPT===pt?'s'+pt:'')+'" onclick="sPTC(\''+pt+'\')" style="cursor:pointer">'+PL[pt]+'</span>'}).join('')}
+function sPTC(pt){selPT=pt;bPTC(pt)}
+function bCAC(cur){selCats=cur.slice();document.getElementById('uCAC').innerHTML=cats.map(function(c){var has=selCats.indexOf(c.id)>=0;return'<div class="CATC '+(has?'on':'')+'" onclick="tSC(\''+c.id+'\')"><div class="CHK">'+(has?'✓':'')+'</div><span style="font-size:11px">'+c.emoji+' '+c.name+'</span></div>'}).join('')}
+function tSC(id){var idx=selCats.indexOf(id);if(idx>=0)selCats.splice(idx,1);else selCats.push(id);bCAC(selCats)}
+function uRC(){var r=document.getElementById('uRole').value;var def={distributor:'dist',agent:'agent',customer:'cust'};bPTC(def[r]||'mrp')}
+function savUser(){var nm=document.getElementById('uNm').value.trim();var un=document.getElementById('uUsr').value.trim();var pw=document.getElementById('uPwd').value;if(!nm||!un||!pw){toast('Name, Username & Password required!');return}var id=document.getElementById('uEId').value;if(!id&&users.find(function(u){return u.username===un})){toast('Username exists!');return}var o={name:nm,username:un,password:pw,role:document.getElementById('uRole').value,phone:document.getElementById('uPh').value,email:document.getElementById('uEm').value,active:true,loginAllowed:true,priceType:selPT,assignedCats:selCats.slice()};if(id){var u=users.find(function(x){return x.id===id});Object.assign(u,o)}else users.push(Object.assign({id:uid()},o));ss('jss_users',users);cm('mUser');rUsers();toast(id?'Updated ✓':'User added ✓')}
+function aprReg(reqId){var reqs=ls('jss_regReqs',[]);var r=reqs.find(function(x){return x.id===reqId});if(!r)return;users=ls('jss_users',DU);var base=r.name.split(' ')[0].toLowerCase().replace(/[^a-z]/g,'')+r.phone.slice(-4);var uname=base;var n=1;while(users.find(function(u){return u.username===uname})){uname=base+n;n++}var pwd=r.phone.slice(-6);users.push({id:uid(),name:r.name,username:uname,password:pwd,role:r.role,phone:r.phone,email:r.email||'',address:r.address,active:true,loginAllowed:true,priceType:r.role==='distributor'?'dist':r.role==='agent'?'agent':'cust',assignedCats:r.role==='customer'?[]:cats.map(function(c){return c.id})});ss('jss_users',users);r.status='Approved';ss('jss_regReqs',reqs);rUsers();toast('✅ '+r.name+' Approved!');setTimeout(function(){alert('✅ '+r.name+' का account बना!\n\nUsername: '+uname+'\nPassword: '+pwd+'\n\nCredentials दे दें।')},300)}
+function rejReg(reqId){if(!confirm('Reject करें?'))return;var reqs=ls('jss_regReqs',[]);var r=reqs.find(function(x){return x.id===reqId});if(r)r.status='Rejected';ss('jss_regReqs',reqs);rUsers();toast('Rejected ✓')}
+
+// ==========  DIST  ==========
+function rDist(){var d=ls('jss_dispatches',[]);var pt=cu.priceType||'dist';var tQ=milkItems.reduce(function(a,i){return a+(i.dispatchQty||0)},0);var tV=milkItems.reduce(function(a,i){return a+(i.dispatchQty||0)*getMilkP(i,pt)},0);document.getElementById('distStats').innerHTML=[{v:d.length,l:'Dispatches'},{v:tQ,l:'Current Qty'},{v:'₹'+tV.toFixed(0),l:'Value'},{v:milkItems.length,l:'Items'}].map(function(s){return'<div class="DSC"><div class="DSV">'+s.v+'</div><div class="DSL">'+s.l+'</div></div>'}).join('');var hist=document.getElementById('distHist');if(!d.length){hist.innerHTML='<div class="EMP"><div class="EI">🚚</div><p>No history</p></div>';return}hist.innerHTML=d.slice().reverse().slice(0,20).map(function(x){return'<div class="OC"><div class="OH"><div><div style="font-size:12px;font-weight:800">Order #'+x.orderNo+' — '+x.shift+'</div><div class="OID">'+(x.orderDate||'—')+' · '+(x.booth||'—')+' · '+x.by+'</div></div><span class="OST OSC">Saved</span></div><div style="font-size:11px">₹'+(x.totalValue||0).toFixed(2)+'</div></div>'}).join('')}
+
+// ==========  SHOP  ==========
+function rShop(){var ac=cu.assignedCats||[];var pt=cu.priceType||'cust';var myCats=cu.role==='customer'?cats.filter(function(c){return ac.indexOf(c.id)>=0}):cats;document.getElementById('shopSub').textContent='Your Price: '+PL[pt];document.getElementById('shopTabs').innerHTML='<button onclick="shopCF=\'all\';rShop()" style="padding:5px 12px;border-radius:20px;border:1.5px solid #e2d5c5;background:'+(shopCF==='all'?'#e05c1a':'#fff')+';color:'+(shopCF==='all'?'#fff':'#7a6650')+';font-size:10px;font-weight:800;cursor:pointer;flex-shrink:0">All</button>'+myCats.map(function(c){return'<button onclick="shopCF=\''+c.id+'\';rShop()" style="padding:5px 12px;border-radius:20px;border:1.5px solid #e2d5c5;background:'+(shopCF===c.id?'#e05c1a':'#fff')+';color:'+(shopCF===c.id?'#fff':'#7a6650')+';font-size:10px;font-weight:800;cursor:pointer;flex-shrink:0;white-space:nowrap">'+c.emoji+' '+c.name+'</button>'}).join('');var myI=items.filter(function(i){return ac.indexOf(i.catId)>=0||(cu.role!=='customer')});if(shopCF!=='all')myI=myI.filter(function(i){return i.catId===shopCF});if(!myI.length){document.getElementById('shopGrid').innerHTML='<div class="EMP" style="grid-column:1/-1"><div class="EI">🛍️</div><p>कोई product नहीं</p></div>';return}document.getElementById('shopGrid').innerHTML=myI.map(function(i){var ctg=cats.find(function(c){return c.id===i.catId});var myP=getP(i,pt,'nag');var mrp=i.nagC||0;return'<div class="SPC"><div class="SPTOP"><div class="SPEMJ">'+(ctg?ctg.emoji:'🛒')+'</div><div class="SPNM">'+i.name+'</div></div><div class="SPBODY">'+(mrp!==myP&&pt!=='cust'?'<div style="font-size:9px;color:#7a6650;text-decoration:line-through">₹'+mrp+'</div>':'')+'<div class="SPPR">₹'+myP+'</div><div style="font-size:9px;color:#7a6650;margin-top:2px">'+PL[pt]+' price</div><div style="font-size:9px;color:#7a6650;margin-top:2px">🟡 ₹'+getP(i,pt,'patti')+' · 🟠 ₹'+getP(i,pt,'cartoon')+'</div><button class="SADD" onclick="addCart(\''+i.id+'\')">🛒 Add to Cart</button></div></div>'}).join('')}
+function addCart(itemId){var it=items.find(function(x){return x.id===itemId});if(!it)return;cartCt++;var cc=document.getElementById('cartCnt');if(cc)cc.textContent=cartCt;var pt=cu.priceType||'cust';orders.push({id:uid(),date:new Date().toISOString().slice(0,10),time:new Date().toLocaleTimeString('hi-IN'),customer:cu.name,itemName:it.name,qty:1,unitType:'nag',price:getP(it,pt,'nag'),total:getP(it,pt,'nag'),address:'',status:'Pending',by:cu.name,priceType:pt});ss('jss_orders',orders);toast(it.name+' cart में add ✓')}
+
+// ==========  REGISTRATION  ==========
+function selRC(role){selRoleVal=role;['agent','distributor','staff','customer'].forEach(function(r){var el=document.getElementById('rc-'+r);if(el){el.classList.toggle('on',r===role)}});}
+function subReg(){var nm=document.getElementById('rNm').value.trim();var ph=document.getElementById('rPh').value.trim();var em=document.getElementById('rEm').value.trim();var ad=document.getElementById('rAd').value.trim();var err=document.getElementById('rErr');var suc=document.getElementById('rSucc');err.style.display='none';suc.style.display='none';if(!nm){err.textContent='❌ नाम डालें';err.style.display='block';return}if(!ph||ph.length!==10||isNaN(ph)){err.textContent='❌ 10-digit mobile डालें';err.style.display='block';return}if(!ad){err.textContent='❌ पता डालें';err.style.display='block';return}if(!selRoleVal){err.textContent='❌ Role select करें';err.style.display='block';return}var reqs=ls('jss_regReqs',[]);if(reqs.find(function(r){return r.phone===ph&&r.status==='Pending'})){err.textContent='⚠️ पहले से request है';err.style.display='block';return}reqs.push({id:uid(),submittedAt:new Date().toISOString(),name:nm,phone:ph,email:em||'—',address:ad,role:selRoleVal,business:document.getElementById('rBiz').value||'—',note:document.getElementById('rNote').value||'—',status:'Pending'});ss('jss_regReqs',reqs);['rNm','rPh','rEm','rAd','rBiz','rNote'].forEach(function(id){document.getElementById(id).value=''});['agent','distributor','staff','customer'].forEach(function(r){var el=document.getElementById('rc-'+r);if(el)el.classList.remove('on')});selRoleVal='';suc.innerHTML='✅ Request submit हो गई!<br><span style="font-size:10px;color:rgba(255,255,255,.5)">Admin approve करेगा — फिर credentials मिलेंगे</span>';suc.style.display='block';setTimeout(function(){suc.style.display='none'},5000)}
+
+// ==========  FORGOT PASSWORD  ==========
+function selFM(m){fpMode=m;['phone','email','uname'].forEach(function(x){var el=document.getElementById('fm-'+x);if(el){el.style.background=x===m?'rgba(39,174,96,.18)':'rgba(255,255,255,.06)';el.style.borderColor=x===m?'rgba(39,174,96,.4)':'rgba(255,255,255,.15)';el.style.color=x===m?'#7fff7f':'rgba(255,255,255,.5)'}});var lbl=document.getElementById('fpInpLbl');if(lbl)lbl.textContent=m==='phone'?'📱 MOBILE NUMBER':m==='email'?'📧 EMAIL ID':'👤 USERNAME';document.getElementById('fpInp').value='';document.getElementById('fpUCard').style.display='none'}
+function fpPreview(){var v=document.getElementById('fpInp').value.trim();var card=document.getElementById('fpUCard');if(!v){card.style.display='none';return}users=ls('jss_users',DU);var f;if(fpMode==='phone')f=users.find(function(x){return x.phone===v});else if(fpMode==='email')f=users.find(function(x){return x.email&&x.email.toLowerCase()===v.toLowerCase()});else f=users.find(function(x){return x.username===v});if(f){document.getElementById('fpUAv').style.background=RC_GRAD[f.role]||'#333';document.getElementById('fpUAv').textContent=f.name.charAt(0).toUpperCase();document.getElementById('fpUNm').textContent=f.name;document.getElementById('fpURl').innerHTML='<span style="background:rgba(255,255,255,.14);padding:2px 8px;border-radius:20px;font-size:10px;font-weight:800;color:#fff">'+ROLE_EMJ[f.role]+' '+RL[f.role]+'</span>';var ph=f.phone||'';var pMask=ph.length>=4?ph.slice(0,-4).replace(/./g,'*')+ph.slice(-4):'—';document.getElementById('fpUPh').textContent='📞 '+pMask;card.style.display='block'}else card.style.display='none'}
+function fpSend(){var v=document.getElementById('fpInp').value.trim();users=ls('jss_users',DU);var f;if(fpMode==='phone')f=users.find(function(x){return x.phone===v});else if(fpMode==='email')f=users.find(function(x){return x.email&&x.email.toLowerCase()===v.toLowerCase()});else f=users.find(function(x){return x.username===v});var e=document.getElementById('fe1');if(!f){e.textContent='❌ User नहीं मिला';e.style.display='block';return}if(f.role==='customer'){e.textContent='🚫 Customer reset Admin करता है';e.style.display='block';return}e.style.display='none';fpUser=f;fpOTP=String(Math.floor(100000+Math.random()*900000));ss('jss_otp_'+f.id,{otp:fpOTP,expiry:Date.now()+5*60*1000});var ph=f.phone||'—';var em=f.email||'—';var pM=ph.length>=4?ph.slice(0,-4).replace(/./g,'*')+ph.slice(-4):'—';var eM=em.length>6?em.charAt(0)+'***@'+em.split('@')[1]:'—';document.getElementById('fp2ph').textContent=pM;document.getElementById('fp2em').textContent=eM;document.getElementById('fp2h').textContent=f.name+' का OTP';document.getElementById('fpOV').textContent=fpOTP;document.getElementById('fpOI').value='';document.getElementById('fe2').style.display='none';fpStep(2);if(fpTID)clearInterval(fpTID);var secs=300;(function tick(){var m=Math.floor(secs/60),s=secs%60;var el=document.getElementById('fpTmr');if(el)el.textContent='⏱ '+m+':'+(s<10?'0'+s:s)+' बाकी';if(secs<=0){clearInterval(fpTID);var ov=document.getElementById('fpOV');if(ov)ov.textContent='EXPIRED'}secs--;fpTID=setTimeout(tick,1000)})()}
+function fpResend(){if(!fpUser)return;fpOTP=String(Math.floor(100000+Math.random()*900000));ss('jss_otp_'+fpUser.id,{otp:fpOTP,expiry:Date.now()+5*60*1000});document.getElementById('fpOV').textContent=fpOTP;document.getElementById('fpOI').value='';document.getElementById('fe2').style.display='none';if(fpTID)clearTimeout(fpTID);var secs=300;(function tick(){var m=Math.floor(secs/60),s=secs%60;var el=document.getElementById('fpTmr');if(el)el.textContent='⏱ '+m+':'+(s<10?'0'+s:s)+' बाकी';if(secs<=0){clearTimeout(fpTID);var ov=document.getElementById('fpOV');if(ov)ov.textContent='EXPIRED'}secs--;fpTID=setTimeout(tick,1000)})();toast('🔄 नया OTP generate ✓')}
+function fpVerify(){var entered=document.getElementById('fpOI').value.trim();var e=document.getElementById('fe2');if(!fpUser){fpStep(1);return}var stored=ls('jss_otp_'+fpUser.id,null);if(!stored){e.textContent='❌ OTP नहीं मिला';e.style.display='block';return}if(Date.now()>stored.expiry){e.textContent='⏱ OTP expire हो गया';e.style.display='block';return}if(entered!==stored.otp){e.textContent='❌ गलत OTP';e.style.display='block';return}e.style.display='none';if(fpTID)clearTimeout(fpTID);document.getElementById('fp3h').textContent=fpUser.name+' — नया password बनाएं';document.getElementById('fpP1').value='';document.getElementById('fpP2').value='';document.getElementById('fe3').style.display='none';document.getElementById('fpSB').style.width='0';document.getElementById('fpST').textContent='';document.getElementById('chgUnCb').checked=false;document.getElementById('unChgRow').style.display='none';fpStep(3)}
+function fpStr(){var p=document.getElementById('fpP1').value;var score=0;if(p.length>=6)score++;if(p.length>=10)score++;if(/[A-Z]/.test(p))score++;if(/[0-9]/.test(p))score++;if(/[^A-Za-z0-9]/.test(p))score++;var lv=[{w:'0%',c:'transparent',t:''},{w:'25%',c:'#e74c3c',t:'😟 Weak'},{w:'50%',c:'#e67e22',t:'😐 OK'},{w:'75%',c:'#f1c40f',t:'🙂 Medium'},{w:'90%',c:'#2ecc71',t:'😊 Strong'},{w:'100%',c:'#27ae60',t:'💪 Very Strong'}];var l=lv[Math.min(score,5)];document.getElementById('fpSB').style.width=l.w;document.getElementById('fpSB').style.background=l.c;document.getElementById('fpST').textContent=l.t}
+function tgUnChange(){document.getElementById('unChgRow').style.display=document.getElementById('chgUnCb').checked?'block':'none'}
+function tgFPwd(inp,eye){var i=document.getElementById(inp);var e=document.getElementById(eye);i.type=i.type==='password'?'text':'password';e.textContent=i.type==='password'?'👁':'🙈'}
+function fpSave(){var p1=document.getElementById('fpP1').value;var p2=document.getElementById('fpP2').value;var e=document.getElementById('fe3');if(!p1||p1.length<4){e.textContent='❌ कम से कम 4 characters';e.style.display='block';return}if(p1!==p2){e.textContent='❌ Passwords match नहीं करते';e.style.display='block';return}e.style.display='none';users=ls('jss_users',DU);var u=users.find(function(x){return x.id===fpUser.id});if(!u){e.textContent='❌ User नहीं मिला';e.style.display='block';return}u.password=p1;var newUn=document.getElementById('chgUnCb').checked?document.getElementById('fpNU').value.trim():'';if(newUn){if(newUn!==u.username&&users.find(function(x){return x.username===newUn})){e.textContent='❌ Username पहले से है';e.style.display='block';return}u.username=newUn}ss('jss_users',users);localStorage.removeItem('jss_otp_'+fpUser.id);document.getElementById('fp4m').innerHTML='<b style="color:#f7813a">'+u.name+'</b> का password reset हो गया!<br><br>Username: <span style="font-family:monospace;background:rgba(255,255,255,.08);padding:3px 10px;border-radius:7px">'+u.username+'</span>';document.getElementById('LU').value=u.username;document.getElementById('LP').value='';fpStep(4)}
+function fpStep(n){[1,2,3,4].forEach(function(i){var el=document.getElementById('fp'+i);if(el)el.style.display=i===n?'block':'none'})}
+function opFP(){document.getElementById('mFP').classList.add('op');fpStep(1);selFM('phone')}
+function clFP(){document.getElementById('mFP').classList.remove('op');if(fpTID)clearTimeout(fpTID);fpUser=null;fpOTP=null}
+
+// ==========  MODAL + TOAST  ==========
+function cm(id){document.getElementById(id).classList.remove('op')}
+document.querySelectorAll('.MO').forEach(function(o){o.addEventListener('click',function(e){if(e.target===o)o.classList.remove('op')})});
+function toast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2300)}
+
+// ==========  SESSION RESTORE  ==========
+(function(){try{var s=sessionStorage.getItem('jss_sess');if(!s)return;var u=JSON.parse(s);users=ls('jss_users',DU);var f=users.find(function(x){return x.id===u.id&&x.active&&x.loginAllowed!==false});if(f){cu=f;initApp()}}catch(e){}})();
+</script>
+</body>
+</html>
